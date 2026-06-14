@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MySam &mdash; Conseil &amp; Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   RESET & ROOT
+============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dp:#3B1F6B;--mp:#5A2FA3;--sp:#7B4FCF;
+  --ll:#EDE7FF;--lm:#C9B8F0;
+  --or:#FF6B35;--oh:#E85520;
+  --wh:#FFFFFF;--ow:#FAF9FF;
+  --td:#1A1030;--tm:#4A3870;--tl:#8270AA;
+  --bd:#E0D8F5;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--td);background:var(--wh);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none}
+section{position:relative}
+ul{list-style:none}
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:50px;font-size:.95rem;
+  font-weight:600;letter-spacing:.02em;cursor:pointer;
+  border:none;text-decoration:none;transition:all .25s ease;white-space:nowrap
+}
+.btn-or  {background:var(--or);color:var(--wh)}
+.btn-or:hover{background:var(--oh);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.35)}
+.btn-wh  {background:var(--wh);color:var(--dp)}
+.btn-wh:hover{background:var(--ll);transform:translateY(-2px);box-shadow:0 8px 24px rgba(90,47,163,.18)}
+.btn-pu  {background:var(--mp);color:var(--wh)}
+.btn-pu:hover{background:var(--dp);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,31,107,.3)}
+.btn-bk  {background:#0f0f0f;color:var(--wh)}
+.btn-bk:hover{background:#2a2a2a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.btn-owh {background:transparent;color:var(--wh);border:2px solid var(--wh)}
+.btn-owh:hover{background:var(--wh);color:var(--dp);transform:translateY(-2px)}
+
+.sec-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mp);margin-bottom:12px
+}
+.sec-label-line{width:28px;height:2px;background:var(--or);border-radius:2px;flex-shrink:0}
+
+/* fade-up reveal */
+.fu{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.fu.on{opacity:1;transform:translateY(0)}
+.fu.d1{transition-delay:.1s}
+.fu.d2{transition-delay:.2s}
+.fu.d3{transition-delay:.3s}
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--bd);transition:box-shadow .3s
+}
+.nav.s{box-shadow:0 4px 32px rgba(59,31,107,.10)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{
+  width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden
+}
+.logo-img{width:40px;height:40px;object-fit:contain;display:block}
+.logo-text{font-weight:700;font-size:1.2rem;color:var(--dp)}
+.logo-sub{font-size:.65rem;color:var(--tl);font-weight:400;letter-spacing:.08em;text-transform:uppercase;display:block;line-height:1}
+
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-links a{padding:8px 14px;border-radius:8px;font-size:.9rem;font-weight:500;color:var(--tm);transition:all .2s}
+.nav-links a:hover{color:var(--mp);background:var(--ll)}
+
+.nav-acts{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.nav-srch{
+  width:36px;height:36px;border-radius:8px;border:1px solid var(--bd);
+  background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--tl);transition:all .2s
+}
+.nav-srch:hover{background:var(--ll);color:var(--mp);border-color:var(--sp)}
+.nav-login{font-size:.875rem;font-weight:500;color:var(--mp);padding:8px 12px;border-radius:8px;transition:all .2s}
+.nav-login:hover{background:var(--ll)}
+
+.hburg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;border:none;background:none}
+.hburg span{display:block;width:22px;height:2px;background:var(--dp);border-radius:2px;transition:all .3s}
+
+/* ============================================================
+   SECTION 0 — INTRO / 3D MANNEQUIN
+============================================================ */
+.intro{
+  min-height:100vh;display:flex;align-items:center;
+  background:#07040F;overflow:hidden;padding-top:72px
+}
+
+/* spotlight */
+.intro-spot{
+  position:absolute;top:-120px;left:-80px;pointer-events:none;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(ellipse at 30% 20%,rgba(123,79,207,.55) 0%,rgba(90,47,163,.2) 40%,transparent 70%);
+  animation:spot 6s ease-in-out infinite
+}
+@keyframes spot{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+
+/* star particles */
+.intro-pts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.intro-pts span{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);animation:twkl linear infinite}
+@keyframes twkl{0%,100%{opacity:0}50%{opacity:1}}
+
+/* bottom fade */
+.intro-fade{
+  position:absolute;bottom:0;left:0;right:0;height:120px;pointer-events:none;
+  background:linear-gradient(transparent,#07040F)
+}
+
+.intro-grid{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  padding:80px 0
+}
+
+/* left text */
+.intro-eye{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--lm);margin-bottom:24px
+}
+.eye-pulse{
+  width:8px;height:8px;border-radius:50%;background:var(--or);
+  box-shadow:0 0 0 0 rgba(255,107,53,.6);animation:opulse 2s ease-out infinite
+}
+@keyframes opulse{0%{box-shadow:0 0 0 0 rgba(255,107,53,.6)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+
+.intro-h1{
+  font-size:clamp(2.4rem,4.5vw,3.8rem);font-weight:900;line-height:1.08;
+  margin-bottom:28px;letter-spacing:-.02em;
+  background:linear-gradient(135deg,#fff 30%,var(--lm) 70%,rgba(255,107,53,.9) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.intro-sub{font-size:1.05rem;line-height:1.75;color:rgba(255,255,255,.6);margin-bottom:40px;max-width:460px}
+.intro-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:52px}
+.intro-badges{display:flex;gap:16px;flex-wrap:wrap}
+.intro-badge{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  border-radius:50px;padding:8px 16px
+}
+.intro-badge span{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.65)}
+
+/* mannequin stage */
+.mq-stage{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  height:600px
+}
+.mq-glow{
+  position:absolute;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(90,47,163,.5) 0%,transparent 70%);
+  animation:mglow 4s ease-in-out infinite
+}
+@keyframes mglow{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.15);opacity:1}}
+
+.orbit{position:absolute;border-radius:50%;border:1px solid rgba(123,79,207,.3);animation:ospin linear infinite}
+.orbit-a{width:320px;height:320px;animation-duration:18s}
+.orbit-b{width:440px;height:440px;animation-duration:28s;animation-direction:reverse;border-color:rgba(255,107,53,.15)}
+@keyframes ospin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;top:-4px;left:50%;transform:translateX(-50%)}
+.orbit-a .orbit-dot{background:var(--sp);box-shadow:0 0 10px var(--sp)}
+.orbit-b .orbit-dot{background:var(--or);box-shadow:0 0 10px var(--or)}
+
+#mq-wrap{
+  position:relative;z-index:2;cursor:crosshair;
+  filter:drop-shadow(0 0 32px rgba(123,79,207,.7));
+  transition:transform .6s ease
+}
+#mq-wrap svg{width:260px;height:auto}
+
+/* mannequin animations */
+@keyframes armwave{0%,100%{transform-origin:70% 35%;transform:rotate(0deg)}30%{transform-origin:70% 35%;transform:rotate(-18deg)}60%{transform-origin:70% 35%;transform:rotate(8deg)}}
+#arm-r{animation:armwave 3.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scaleY(1);transform-origin:center bottom}50%{transform:scaleY(1.015);transform-origin:center bottom}}
+#torso{animation:breathe 3s ease-in-out infinite}
+@keyframes headnod{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+#head{animation:headnod 3s ease-in-out infinite}
+
+/* data chips */
+.chip{
+  position:absolute;background:rgba(20,10,40,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(123,79,207,.4);border-radius:12px;
+  padding:10px 14px;display:flex;align-items:center;gap:8px;
+  animation:chipfloat ease-in-out infinite;white-space:nowrap;z-index:3
+}
+@keyframes chipfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.chip-ico{font-size:1rem}
+.chip-txt strong{display:block;font-size:.78rem;font-weight:700;color:var(--wh);line-height:1.2}
+.chip-txt span{font-size:.7rem;color:rgba(255,255,255,.45)}
+.c1{top:14%;right:2%;animation-duration:4.2s}
+.c2{bottom:22%;left:0%;animation-duration:5.1s;animation-delay:.8s}
+.c3{top:48%;right:-2%;animation-duration:3.8s;animation-delay:1.4s}
+.c4{top:10%;left:5%;animation-duration:4.6s;animation-delay:.4s}
+
+/* ============================================================
+   HERO B2B
+============================================================ */
+.hero{min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:72px}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(135deg,rgba(59,31,107,.82) 0%,rgba(90,47,163,.55) 50%,rgba(59,31,107,.25) 100%),
+    url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1800&q=80') center/cover no-repeat
+}
+.hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(123,79,207,.3) 0%,transparent 70%)}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 480px;gap:60px;align-items:center;padding:80px 0}
+
+.hero-brow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.25);border-radius:50px;
+  padding:6px 16px;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.9);
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px
+}
+.hero-brow-dot{width:8px;height:8px;border-radius:50%;background:var(--or)}
+
+.hero-h2{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4rem);line-height:1.1;color:var(--wh);margin-bottom:24px;font-weight:700}
+.hero-h2 em{font-style:normal;color:var(--lm)}
+.hero-p{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,.82);max-width:500px;margin-bottom:36px}
+
+.hero-stats{display:flex;gap:32px;margin-top:48px}
+.stat{border-left:3px solid var(--or);padding-left:16px}
+.stat-n{font-size:1.8rem;font-weight:800;color:var(--wh);line-height:1}
+.stat-l{font-size:.78rem;color:rgba(255,255,255,.65);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
+
+.hero-card{
+  background:rgba(255,255,255,.10);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:40px;
+  box-shadow:0 24px 64px rgba(0,0,0,.2)
+}
+.hero-card-ico{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--or),#FF9A5C);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.4rem}
+.hero-card h3{font-size:1.3rem;font-weight:700;color:var(--wh);margin-bottom:16px}
+.hero-card p{font-size:.95rem;line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:28px}
+.card-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.tag{padding:6px 14px;border-radius:50px;font-size:.78rem;font-weight:500;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2)}
+
+/* ============================================================
+   B2C
+============================================================ */
+.b2c{padding:120px 0;background:var(--ow)}
+.b2c-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+
+.b2c-img{border-radius:28px;overflow:hidden;box-shadow:0 32px 80px rgba(59,31,107,.18)}
+.b2c-img img{width:100%;height:560px;object-fit:cover;transition:transform .6s ease}
+.b2c-img:hover img{transform:scale(1.03)}
+.b2c-badge{
+  position:absolute;bottom:28px;left:28px;
+  background:var(--wh);border-radius:16px;padding:16px 20px;
+  box-shadow:0 8px 32px rgba(59,31,107,.15);display:flex;align-items:center;gap:14px
+}
+.b2c-badge-ico{font-size:1.6rem}
+.b2c-badge strong{display:block;font-size:.9rem;font-weight:700;color:var(--td)}
+.b2c-badge span{font-size:.78rem;color:var(--tl)}
+
+.b2c-cnt h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;color:var(--dp);line-height:1.2;margin-bottom:20px}
+.b2c-cnt h2 span{color:var(--sp)}
+.b2c-cnt p{font-size:1rem;line-height:1.75;color:var(--tm);margin-bottom:28px}
+
+.feat-list{display:flex;flex-direction:column;gap:16px;margin-bottom:36px}
+.feat{display:flex;align-items:flex-start;gap:14px;padding:16px 20px;border-radius:14px;background:var(--wh);border:1px solid var(--bd);transition:all .25s}
+.feat:hover{border-color:var(--lm);box-shadow:0 4px 20px rgba(59,31,107,.08);transform:translateX(4px)}
+.feat-ico{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.fi-pu{background:var(--ll)}
+.fi-or{background:#FFF0EA}
+.fi-gr{background:#E8F5EE}
+.feat strong{display:block;font-size:.9rem;font-weight:600;color:var(--td);margin-bottom:2px}
+.feat span{font-size:.82rem;color:var(--tl)}
+
+/* ============================================================
+   ZODIAC
+============================================================ */
+.zodiac{padding:120px 0;background:linear-gradient(160deg,var(--dp) 0%,#2A1250 50%,#1A0A3A 100%);overflow:hidden}
+.zodiac::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(123,79,207,.25) 0%,transparent 70%)}
+.zodiac-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+
+.z-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.4);border-radius:50px;padding:6px 16px;font-size:.78rem;font-weight:700;color:#FF9A5C;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.zodiac h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;color:var(--wh);line-height:1.2;margin-bottom:12px}
+.zodiac h2 .acc{color:var(--lm)}
+.z-sub{font-size:1.05rem;font-weight:600;color:var(--or);margin-bottom:20px;letter-spacing:.02em}
+.zodiac p{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.75);margin-bottom:36px}
+
+.pillars{display:flex;flex-direction:column;gap:16px;margin-bottom:40px}
+.pill{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);transition:all .25s}
+.pill:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.2)}
+.pill-n{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,var(--or),#FF9A5C);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--wh)}
+.pill strong{display:block;font-size:.9rem;font-weight:600;color:var(--wh);margin-bottom:2px}
+.pill span{font-size:.8rem;color:rgba(255,255,255,.55)}
+
+.z-img{border-radius:28px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.4)}
+.z-img img{width:100%;height:580px;object-fit:cover;transition:transform .6s ease}
+.z-img:hover img{transform:scale(1.03)}
+.z-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,10,58,.7) 0%,transparent 50%)}
+.z-quote{position:absolute;bottom:28px;left:28px;right:28px;color:var(--wh)}
+.z-quote blockquote{font-family:'Playfair Display',serif;font-size:1.05rem;line-height:1.5;margin-bottom:12px;font-style:italic}
+.z-quote-auth{font-size:.8rem;color:rgba(255,255,255,.65)}
+
+.z-ptns{margin-top:20px}
+.z-ptns-lbl{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ptns{display:flex;gap:12px;flex-wrap:wrap}
+.ptn{padding:8px 18px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.8rem;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.04em}
+
+/* ============================================================
+   TRUST BAR
+============================================================ */
+.trust{padding:64px 0;background:linear-gradient(135deg,var(--ll) 0%,#F5EEFF 100%)}
+.trust-in{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.trust-in h3{font-size:1.4rem;font-weight:700;color:var(--dp);margin-bottom:6px}
+.trust-in p{font-size:.9rem;color:var(--tl)}
+.trust-nums{display:flex;gap:48px}
+.tn{text-align:center}
+.tn-n{font-size:2.2rem;font-weight:800;color:var(--mp);line-height:1}
+.tn-l{font-size:.78rem;color:var(--tl);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+
+/* ============================================================
+   PRICING
+============================================================ */
+.pricing{
+  padding:120px 0;
+  background:linear-gradient(160deg,#1E0A40 0%,var(--dp) 40%,#5A2FA3 100%);
+  overflow:hidden
+}
+.pricing::before{content:'';position:absolute;top:-300px;left:50%;transform:translateX(-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.08) 0%,transparent 65%)}
+
+.pr-head{text-align:center;margin-bottom:56px}
+.pr-eye{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:6px 18px;font-size:.78rem;font-weight:700;color:var(--lm);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.pr-head h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--wh);margin-bottom:14px}
+.pr-head > p{font-size:1rem;color:rgba(255,255,255,.6);max-width:480px;margin:0 auto 32px;line-height:1.7}
+
+/* toggle */
+.tog-wrap{display:inline-flex;align-items:center;gap:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:6px 12px}
+.tog-lbl{font-size:.88rem;font-weight:600;color:rgba(255,255,255,.45);padding:4px 12px;cursor:pointer;transition:color .2s;user-select:none}
+.tog-lbl.act{color:var(--wh)}
+.tog-sw{position:relative;width:52px;height:28px;border-radius:50px;background:rgba(255,255,255,.15);cursor:pointer;transition:background .3s;flex-shrink:0}
+.tog-sw.yr{background:var(--or)}
+.tog-knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--wh);transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.tog-sw.yr .tog-knob{transform:translateX(24px)}
+.sv-badge{background:rgba(255,107,53,.2);border:1px solid rgba(255,107,53,.5);border-radius:50px;padding:3px 10px;font-size:.72rem;font-weight:700;color:#FF9A5C}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:1}
+.plan{
+  background:rgba(255,255,255,.06);backdrop-filter:blur(20px);
+  border:2px solid rgba(255,255,255,.12);border-radius:24px;
+  padding:36px 32px;display:flex;flex-direction:column;transition:all .3s ease
+}
+.plan:hover{border-color:rgba(255,255,255,.3);transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.plan.pop{background:rgba(255,255,255,.12);border-color:var(--or);transform:scale(1.03);box-shadow:0 32px 80px rgba(255,107,53,.2)}
+.plan.pop:hover{transform:scale(1.03) translateY(-4px)}
+
+.plan-brow{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;min-height:28px}
+.pop-tag{background:#FFC107;color:#1A1030;font-size:.72rem;font-weight:800;padding:4px 12px;border-radius:50px;letter-spacing:.05em}
+
+.plan-name{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+.plan-pw{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
+.plan-cur{font-size:1.3rem;font-weight:700;color:var(--wh);margin-bottom:6px}
+.plan-amt{
+  font-size:3.2rem;font-weight:900;color:var(--wh);line-height:1;
+  font-variant-numeric:tabular-nums;display:inline-block;min-width:3ch
+}
+.plan-amt.flip{animation:pflip .38s ease}
+@keyframes pflip{0%{opacity:0;transform:translateY(-10px)}100%{opacity:1;transform:translateY(0)}}
+.plan-per{font-size:.85rem;color:rgba(255,255,255,.45);margin-bottom:6px}
+.plan-note{font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:28px;min-height:18px}
+.plan-div{height:1px;background:rgba(255,255,255,.1);margin-bottom:28px}
+
+.plan-feats{display:flex;flex-direction:column;gap:12px;flex:1;margin-bottom:32px}
+.pf{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:rgba(255,255,255,.75)}
+.pf-chk{flex-shrink:0;margin-top:2px}
+.pf.dim{color:rgba(255,255,255,.3)}
+
+.pcta{display:block;width:100%;padding:14px;border-radius:14px;text-align:center;font-weight:700;font-size:.95rem;cursor:pointer;border:none;transition:all .25s;text-decoration:none}
+.pcta-gh{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2)}
+.pcta-gh:hover{background:rgba(255,255,255,.15);color:var(--wh)}
+.pcta-so{background:var(--wh);color:var(--td);font-weight:800}
+.pcta-so:hover{background:var(--ll);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.pcta-or{background:var(--or);color:var(--wh);font-weight:800}
+.pcta-or:hover{background:var(--oh);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.4)}
+
+/* trust strip */
+.pr-trust{display:flex;align-items:center;justify-content:center;gap:36px;margin-top:48px;flex-wrap:wrap}
+.pt{display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.45)}
+
+/* ============================================================
+   TESTIMONIALS
+============================================================ */
+.testi{padding:120px 0 60px;background:linear-gradient(180deg,var(--ow) 0%,var(--wh) 100%);overflow:hidden}
+.testi-head{text-align:center;margin-bottom:64px}
+.testi-head h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--dp);margin-bottom:14px}
+.testi-head p{font-size:1rem;color:var(--tl);max-width:480px;margin:0 auto;line-height:1.7}
+
+.testi-cols{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  height:600px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%)
+}
+.tcol{overflow:hidden}
+.ttrack{display:flex;flex-direction:column;gap:20px}
+
+/* animations set dynamically by JS once heights are known */
+
+.tc{
+  background:var(--wh);border:1px solid var(--bd);border-radius:20px;padding:24px;
+  box-shadow:0 4px 24px rgba(59,31,107,.07);transition:all .25s;flex-shrink:0
+}
+.tc:hover{border-color:var(--lm);box-shadow:0 8px 40px rgba(59,31,107,.13);transform:translateY(-2px)}
+.tc-stars{display:flex;gap:2px;margin-bottom:14px}
+.tc-stars span{color:#FFC107;font-size:.9rem}
+.tc-txt{font-size:.9rem;line-height:1.7;color:var(--tm);margin-bottom:18px;font-style:italic}
+.tc-auth{display:flex;align-items:center;gap:12px}
+.tc-av{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--ll)}
+.tc-name{font-size:.88rem;font-weight:700;color:var(--td)}
+.tc-role{font-size:.76rem;color:var(--tl);margin-top:1px}
+.tc-prog{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:50px;font-size:.7rem;font-weight:600}
+.pr-b2b{background:var(--ll);color:var(--mp)}
+.pr-b2c{background:#FFF0EA;color:var(--or)}
+.pr-zod{background:#E8F5EE;color:#2E7D4F}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;margin-bottom:64px}
+.ft-brand .logo{margin-bottom:16px}
+.ft-brand .logo-text{color:var(--wh)}
+.ft-brand > p{font-size:.88rem;line-height:1.7;color:rgba(255,255,255,.55);max-width:280px}
+.ft-social{display:flex;gap:10px;margin-top:20px}
+.soc{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;text-decoration:none}
+.soc:hover{background:var(--mp);border-color:var(--mp);color:var(--wh)}
+.ft-col h4{font-size:.88rem;font-weight:700;color:var(--wh);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px}
+.ft-col ul{display:flex;flex-direction:column;gap:12px}
+.ft-col ul a{font-size:.88rem;color:rgba(255,255,255,.55);transition:color .2s}
+.ft-col ul a:hover{color:var(--lm)}
+.ft-contacts{display:flex;flex-direction:column;gap:14px}
+.fci{display:flex;align-items:flex-start;gap:12px}
+.fci-ico{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;margin-top:1px}
+.fci strong{display:block;font-size:.8rem;font-weight:600;color:var(--wh)}
+.fci span{font-size:.82rem;color:rgba(255,255,255,.5)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.08);padding-top:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.ft-bot p{font-size:.82rem;color:rgba(255,255,255,.35)}
+.ft-links{display:flex;gap:24px}
+.ft-links a{font-size:.82rem;color:rgba(255,255,255,.35);transition:color .2s}
+.ft-links a:hover{color:rgba(255,255,255,.7)}
+
+/* ============================================================
+   SCROLL-TO-TOP
+============================================================ */
+.stop{
+  position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:14px;
+  background:var(--mp);color:var(--wh);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(90,47,163,.35);
+  opacity:0;transform:translateY(16px);transition:all .3s;z-index:200
+}
+.stop.on{opacity:1;transform:translateY(0)}
+.stop:hover{background:var(--dp);transform:translateY(-2px)}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:1024px){
+  .intro-grid,.hero-grid,.b2c-grid,.zodiac-grid{grid-template-columns:1fr;gap:48px}
+  .mq-stage{height:400px}
+  .plans{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+  .plan.pop{transform:none}
+  .plan.pop:hover{transform:translateY(-4px)}
+  .ft-grid{grid-template-columns:1fr 1fr}
+  .trust-in{flex-direction:column;text-align:center}
+  .trust-nums{justify-content:center}
+}
+@media(max-width:768px){
+  .nav-links,.nav-login{display:none}
+  .hburg{display:flex}
+  .hero-stats,.intro-ctas{flex-direction:column;gap:16px}
+  .ft-grid{grid-template-columns:1fr;gap:32px}
+  .trust-nums{gap:24px}
+  .testi-cols{grid-template-columns:1fr}
+  .tcol:nth-child(2),.tcol:nth-child(3){display:none}
+  .c3,.c4{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="nav" id="navbar">
+  <div class="container">
+    <div class="nav-in">
+      <a href="#home" class="logo">
+        <div class="logo-mark"><img src="assets/Logo MySam.png" alt="MySam" class="logo-img"/></div>
+        <div>
+          <span class="logo-text">MySam</span>
+          <span class="logo-sub">Conseil &amp; Service</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Accueil</a></li>
+        <li><a href="actualites.html">Actualit&eacute;s</a></li>
+        <li><a href="rendezvous.html">Rendez-vous</a></li>
+        <li><a href="contact.html">Contactez-nous</a></li>
+      </ul>
+      <div class="nav-acts">
+        <button class="nav-srch" aria-label="Rechercher">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <a href="connexion.html" class="nav-login">Se connecter</a>
+        <a href="contact.html" class="btn btn-or">Contactez-nous</a>
+      </div>
+      <button class="hburg" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     INTRO — 3D MANNEQUIN
+============================================================ -->
+<section class="intro" id="intro">
+  <div class="intro-spot"></div>
+  <div class="intro-pts" id="ipts"></div>
+  <div class="intro-fade"></div>
+
+  <div class="container">
+    <div class="intro-grid">
+
+      <!-- Left text -->
+      <div class="fu">
+        <div class="intro-eye"><span class="eye-pulse"></span>MySam &mdash; Conseil &amp; Service</div>
+        <h1 class="intro-h1">Approche&nbsp;Personnalis&eacute;e.<br/>Solutions&nbsp;Concr&egrave;tes.</h1>
+        <p class="intro-sub">L&rsquo;expertise humaine au service de vos projets.<br/>Accompagnement sur mesure pour entreprises, particuliers et publics en r&eacute;insertion.</p>
+        <div class="intro-ctas">
+          <a href="#home" class="btn btn-or">D&eacute;couvrir MySam <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="#pricing" class="btn btn-owh">Voir les offres</a>
+        </div>
+        <div class="intro-badges">
+          <div class="intro-badge"><span>Solutions Entreprises</span></div>
+          <div class="intro-badge"><span>Coaching individuel</span></div>
+          <div class="intro-badge"><span>Programme Zodiac</span></div>
+        </div>
+      </div>
+
+      <!-- Right: mannequin -->
+      <div class="mq-stage fu d2">
+        <div class="mq-glow"></div>
+        <div class="orbit orbit-a"><div class="orbit-dot"></div></div>
+        <div class="orbit orbit-b"><div class="orbit-dot"></div></div>
+
+        <div id="mq-wrap">
+          <svg viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg" aria-label="Mannequin MySam">
+            <defs>
+              <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#A78BFA;stop-opacity:.9"/>
+                <stop offset="100%" style="stop-color:#5A2FA3;stop-opacity:.7"/>
+              </linearGradient>
+              <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#C4B5FD;stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:.85"/>
+              </linearGradient>
+              <linearGradient id="bg3" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#6D28D9;stop-opacity:.8"/>
+                <stop offset="100%" style="stop-color:#2E1065;stop-opacity:.6"/>
+              </linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="iglow"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <!-- shadow -->
+            <ellipse cx="100" cy="335" rx="40" ry="6" fill="rgba(90,47,163,.3)" filter="url(#glow)"/>
+            <!-- legs -->
+            <rect x="78" y="220" width="18" height="80" rx="9" fill="url(#bg3)" filter="url(#iglow)"/>
+            <ellipse cx="87" cy="302" rx="12" ry="6" fill="#4C1D95" opacity=".8"/>
+            <rect x="104" y="220" width="18" height="80" rx="9" fill="url(#bg3)" filter="url(#iglow)"/>
+            <ellipse cx="113" cy="302" rx="12" ry="6" fill="#4C1D95" opacity=".8"/>
+            <!-- torso -->
+            <g id="torso">
+              <path d="M78 220 Q100 228 122 220 L126 190 Q100 200 74 190 Z" fill="url(#bg1)" opacity=".9"/>
+              <rect x="72" y="140" width="56" height="58" rx="10" fill="url(#bg1)" filter="url(#iglow)"/>
+              <ellipse cx="100" cy="158" rx="18" ry="12" fill="rgba(196,181,253,.2)"/>
+              <!-- left arm -->
+              <rect x="55" y="142" width="16" height="56" rx="8" fill="url(#bg1)" filter="url(#iglow)" transform="rotate(6 63 170)"/>
+              <ellipse cx="60" cy="200" rx="9" ry="7" fill="#6D28D9" opacity=".85" transform="rotate(6 60 200)"/>
+              <!-- right arm (waving) -->
+              <g id="arm-r">
+                <rect x="129" y="140" width="16" height="56" rx="8" fill="url(#bg1)" filter="url(#iglow)" transform="rotate(-8 137 168)"/>
+                <ellipse cx="140" cy="196" rx="9" ry="7" fill="#6D28D9" opacity=".85" transform="rotate(-8 140 196)"/>
+                <line x1="136" y1="193" x2="136" y2="186" stroke="rgba(196,181,253,.6)" stroke-width="2" stroke-linecap="round"/>
+                <line x1="141" y1="191" x2="141" y2="183" stroke="rgba(196,181,253,.6)" stroke-width="2" stroke-linecap="round"/>
+                <line x1="146" y1="193" x2="146" y2="186" stroke="rgba(196,181,253,.6)" stroke-width="2" stroke-linecap="round"/>
+              </g>
+              <line x1="72" y1="148" x2="128" y2="148" stroke="rgba(196,181,253,.35)" stroke-width="1.5"/>
+            </g>
+            <!-- neck -->
+            <rect x="93" y="114" width="14" height="28" rx="7" fill="url(#bg2)" filter="url(#iglow)"/>
+            <!-- head -->
+            <g id="head">
+              <ellipse cx="100" cy="96" rx="28" ry="32" fill="url(#bg2)" filter="url(#glow)"/>
+              <ellipse cx="100" cy="88" rx="14" ry="16" fill="rgba(255,255,255,.12)"/>
+              <ellipse cx="91" cy="88" rx="4.5" ry="5.5" fill="rgba(255,255,255,.9)"/>
+              <ellipse cx="109" cy="88" rx="4.5" ry="5.5" fill="rgba(255,255,255,.9)"/>
+              <circle cx="92" cy="88" r="2.5" fill="#1A0040"/>
+              <circle cx="110" cy="88" r="2.5" fill="#1A0040"/>
+              <circle cx="93" cy="87" r="1" fill="rgba(255,255,255,.8)"/>
+              <circle cx="111" cy="87" r="1" fill="rgba(255,255,255,.8)"/>
+              <path d="M92 103 Q100 110 108 103" stroke="rgba(255,255,255,.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="100" cy="72" rx="16" ry="8" fill="rgba(196,181,253,.2)"/>
+            </g>
+            <line x1="72" y1="148" x2="72" y2="196" stroke="rgba(196,181,253,.3)" stroke-width="1"/>
+            <line x1="128" y1="148" x2="128" y2="196" stroke="rgba(196,181,253,.3)" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <!-- floating chips -->
+        <div class="chip c1"><span class="chip-ico"></span><div class="chip-txt"><strong>RH &amp; Conseil</strong><span>Solutions Entreprises</span></div></div>
+        <div class="chip c2"><span class="chip-ico"></span><div class="chip-txt"><strong>98% satisfaction</strong><span>Clients accompagn&eacute;s</span></div></div>
+        <div class="chip c3"><span class="chip-ico"></span><div class="chip-txt"><strong>Programme Zodiac</strong><span>R&eacute;insertion pro</span></div></div>
+        <div class="chip c4"><span class="chip-ico"></span><div class="chip-txt"><strong>500+ accompagn&eacute;s</strong><span>Depuis 8 ans</span></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HERO B2B
+============================================================ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="fu">
+        <div class="hero-brow"><span class="hero-brow-dot"></span>Solutions Entreprises</div>
+        <h2 class="hero-h2">Structurez votre strat&eacute;gie,<br/><em>lib&eacute;rez le potentiel</em><br/>de vos &eacute;quipes.</h2>
+        <p class="hero-p">MySam accompagne les organisations dans leurs enjeux RH, de communication et de transformation &mdash; de la r&eacute;flexion strat&eacute;gique jusqu&rsquo;&agrave; la mise en&nbsp;&oelig;uvre op&eacute;rationnelle.</p>
+        <a href="#home" class="btn btn-wh">Acc&eacute;der aux solutions <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Entreprises accompagn&eacute;es</div></div>
+          <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Taux de satisfaction</div></div>
+          <div class="stat"><div class="stat-n">8 ans</div><div class="stat-l">D&rsquo;expertise terrain</div></div>
+        </div>
+      </div>
+      <div class="hero-card fu d2">
+        <div class="hero-card-ico"></div>
+        <h3>Conseil &amp; Accompagnement RH</h3>
+        <p>Vous cherchez &agrave; structurer votre strat&eacute;gie RH, renforcer votre communication ou accompagner vos &eacute;quipes dans la dur&eacute;e&nbsp;? MySam intervient sur des enjeux vari&eacute;s, de la r&eacute;flexion strat&eacute;gique &agrave; la mise en&nbsp;&oelig;uvre op&eacute;rationnelle.</p>
+        <div class="card-tags">
+          <span class="tag">Strat&eacute;gie RH</span>
+          <span class="tag">Communication interne</span>
+          <span class="tag">Formation</span>
+          <span class="tag">Conduite du changement</span>
+          <span class="tag">Team Building</span>
+        </div>
+        <a href="#home" class="btn btn-or">Acc&eacute;der aux solutions <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     B2C — PARTICULIERS
+============================================================ -->
+<section class="b2c" id="particuliers">
+  <div class="container">
+    <div class="b2c-grid">
+      <div class="b2c-img fu" style="position:relative">
+        <img src="https://images.unsplash.com/photo-1573497161161-c3e73707e25c?w=900&q=80" alt="Session de coaching individuel" />
+        <div class="b2c-badge">
+          <div><strong>Suivi personnalis&eacute;</strong><span>&Agrave; chaque &eacute;tape de votre parcours</span></div>
+        </div>
+      </div>
+      <div class="b2c-cnt fu d1">
+        <div class="sec-label"><span class="sec-label-line"></span>Accompagnement Particuliers</div>
+        <h2>Un soutien <span>professionnel</span> taill&eacute; sur mesure pour vous.</h2>
+        <p>Vous avez besoin d&rsquo;un regard professionnel pour avancer dans votre parcours, pr&eacute;parer une candidature ou structurer un projet. MySam vous accompagne de fa&ccedil;on concr&egrave;te, avec des outils et des conseils adapt&eacute;s &agrave; votre situation.</p>
+        <div class="feat-list">
+          <div class="feat"><div class="feat-ico fi-pu"></div><div><strong>Bilan de comp&eacute;tences</strong><span>Clarifiez votre orientation professionnelle et vos atouts cl&eacute;s</span></div></div>
+          <div class="feat"><div class="feat-ico fi-or"></div><div><strong>Pr&eacute;paration aux candidatures</strong><span>CV, lettres de motivation, entra&icirc;nement aux entretiens</span></div></div>
+          <div class="feat"><div class="feat-ico fi-gr"></div><div><strong>Structuration de projet</strong><span>De l&rsquo;id&eacute;e &agrave; l&rsquo;action concr&egrave;te, &eacute;tape par &eacute;tape</span></div></div>
+        </div>
+        <a href="contact.html" class="btn btn-pu">&Ecirc;tre accompagn&eacute; <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ZODIAC
+============================================================ -->
+<section class="zodiac" id="zodiac">
+  <div class="container">
+    <div class="zodiac-grid">
+      <div class="fu">
+        <div class="z-badge">Programme exclusif</div>
+        <h2>Programme <span class="acc">Zodiac</span></h2>
+        <p class="z-sub">Public tr&egrave;s &eacute;loign&eacute; de l&rsquo;emploi</p>
+        <p>Certaines situations n&eacute;cessitent un accompagnement sp&eacute;cifique pour faciliter l&rsquo;acc&egrave;s ou le retour &agrave; l&rsquo;emploi. MySam intervient pour la r&eacute;insertion professionnelle aupr&egrave;s des personnes tr&egrave;s &eacute;loign&eacute;es de l&rsquo;emploi. Nous travaillons avec des structures partenaires pour proposer des solutions adapt&eacute;es, humaines, et durables.</p>
+        <div class="pillars">
+          <div class="pill"><div class="pill-n">01</div><div><strong>&Eacute;valuation &amp; diagnostic individuel</strong><span>Comprendre la situation, les freins et les ressources de chaque personne</span></div></div>
+          <div class="pill"><div class="pill-n">02</div><div><strong>Ateliers collectifs de remobilisation</strong><span>Retrouver confiance en soi dans un cadre bienveillant et inclusif</span></div></div>
+          <div class="pill"><div class="pill-n">03</div><div><strong>Accompagnement vers l&rsquo;emploi</strong><span>Mise en relation avec les partenaires et suivi jusqu&rsquo;&agrave; l&rsquo;insertion</span></div></div>
+        </div>
+        <a href="#zodiac" class="btn btn-or" style="margin-bottom:36px">D&eacute;couvrir le programme <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <div class="z-ptns">
+          <p class="z-ptns-lbl">Structures partenaires</p>
+          <div class="ptns">
+            <div class="ptn">P&ocirc;le Emploi</div>
+            <div class="ptn">Mission Locale</div>
+            <div class="ptn">CCAS</div>
+            <div class="ptn">CAP Emploi</div>
+            <div class="ptn">SIAE</div>
+          </div>
+        </div>
+      </div>
+      <div class="z-img fu d2" style="position:relative">
+        <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=900&q=80" alt="Atelier collectif Programme Zodiac" />
+        <div class="z-ov"></div>
+        <div class="z-quote">
+          <blockquote>&ldquo;Chaque personne m&eacute;rite une chance concr&egrave;te de retrouver sa place dans le monde du travail.&rdquo;</blockquote>
+          <p class="z-quote-auth">&mdash; L&rsquo;&eacute;quipe MySam, Programme Zodiac</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRUST BAR
+============================================================ -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-in">
+      <div>
+        <h3>Une confiance construite au quotidien.</h3>
+        <p>Des r&eacute;sultats mesurables, des histoires humaines qui durent.</p>
+      </div>
+      <div class="trust-nums">
+        <div class="tn"><div class="tn-n">500+</div><div class="tn-l">Personnes accompagn&eacute;es</div></div>
+        <div class="tn"><div class="tn-n">3</div><div class="tn-l">Programmes d&eacute;di&eacute;s</div></div>
+        <div class="tn"><div class="tn-n">50+</div><div class="tn-l">Partenaires actifs</div></div>
+        <div class="tn"><div class="tn-n">94%</div><div class="tn-l">Taux d&rsquo;insertion</div></div>
+      </div>
+      <a href="rendezvous.html" class="btn btn-pu">Prendre rendez-vous</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING
+============================================================ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pr-head fu">
+      <div class="pr-eye">Tarification transparente</div>
+      <h2>Choisissez votre formule</h2>
+      <p>Des offres claires, sans surprise, adapt&eacute;es &agrave; chaque besoin &mdash; particulier ou professionnel.</p>
+      <div class="ben-wrap" style="margin-top:18px;display:inline-flex;gap:12px;">
+        <button class="btn btn-wh ben-btn act" data-profile="particulier">Particulier</button>
+        <button class="btn btn-owh ben-btn" data-profile="entreprise">Entreprise</button>
+      </div>
+      <div class="tog-wrap">
+        <span class="tog-lbl act" id="tlm">Mensuel</span>
+        <div class="tog-sw" id="tsw"><div class="tog-knob"></div></div>
+        <span class="tog-lbl" id="tly">Annuel</span>
+        <span class="sv-badge">&minus;25&thinsp;%</span>
+      </div>
+    </div>
+
+    <div class="plans fu d1">
+      <!-- FREE -->
+      <div class="plan">
+        <div class="plan-brow"></div>
+        <div class="plan-name">D&eacute;couverte</div>
+        <div class="plan-pw"><span class="plan-cur">&euro;</span><span class="plan-amt" id="pf">0</span></div>
+        <div class="plan-per">/ mois</div>
+        <div class="plan-note" id="nf">&nbsp;</div>
+        <div class="plan-div"></div>
+        <ul class="plan-feats">
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>1 session de diagnostic</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acc&egrave;s aux ressources en ligne</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Newsletter MySam</li>
+          <li class="pf dim"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Suivi personnalis&eacute;</li>
+          <li class="pf dim"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Acc&egrave;s prioritaire</li>
+        </ul>
+        <a href="connexion.html" class="pcta pcta-gh">Commencer gratuitement</a>
+      </div>
+
+      <!-- STARTER -->
+      <div class="plan pop">
+        <div class="plan-brow"><span class="pop-tag">Populaire</span></div>
+        <div class="plan-name">Starter</div>
+        <div class="plan-pw"><span class="plan-cur">&euro;</span><span class="plan-amt" id="ps">79</span></div>
+        <div class="plan-per">/ mois</div>
+        <div class="plan-note" id="ns">&nbsp;</div>
+        <div class="plan-div"></div>
+        <ul class="plan-feats">
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>3 s&eacute;ances de coaching / mois</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Bilan de comp&eacute;tences initial</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Plan d&rsquo;action personnalis&eacute;</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Messagerie coach d&eacute;di&eacute;e</li>
+          <li class="pf dim"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Acc&egrave;s illimit&eacute; aux ateliers</li>
+        </ul>
+        <a href="rendezvous.html" class="pcta pcta-or">D&eacute;marrer maintenant</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="plan">
+        <div class="plan-brow"></div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-pw"><span class="plan-cur">&euro;</span><span class="plan-amt" id="pp">149</span></div>
+        <div class="plan-per">/ mois</div>
+        <div class="plan-note" id="np">&nbsp;</div>
+        <div class="plan-div"></div>
+        <ul class="plan-feats">
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>S&eacute;ances illimit&eacute;es</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acc&egrave;s tous programmes MySam</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Ateliers collectifs prioritaires</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Rapport de progression mensuel</li>
+          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Support d&eacute;di&eacute; &amp; acc&egrave;s prioritaire</li>
+        </ul>
+        <a href="rendezvous.html" class="pcta pcta-so">D&eacute;marrer</a>
+      </div>
+    </div>
+
+    <div class="pr-trust fu d2">
+      <div class="pt"><span>🔒</span> Paiement s&eacute;curis&eacute; SSL</div>
+      <div class="pt"><span>✅</span> Satisfait ou rembours&eacute; 30 jours</div>
+      <div class="pt"><span>🔄</span> R&eacute;siliation &agrave; tout moment</div>
+      <div class="pt"><span>🤝</span> Sans engagement minimal</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+============================================================ -->
+<section class="testi" id="temoignages">
+  <div class="container">
+    <div class="testi-head fu">
+      <div class="sec-label"><span class="sec-label-line"></span>T&eacute;moignages</div>
+      <h2>Ce que disent nos utilisateurs.</h2>
+      <p>Des parcours r&eacute;els, des transformations concr&egrave;tes. D&eacute;couvrez les retours de celles et ceux que MySam a accompagn&eacute;s.</p>
+    </div>
+    <div class="testi-cols fu d1">
+      <div class="tcol"><div class="ttrack" id="tc1"></div></div>
+      <div class="tcol"><div class="ttrack" id="tc2"></div></div>
+      <div class="tcol"><div class="ttrack" id="tc3"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a href="index.html#home" class="logo">
+          <div class="logo-mark"><img src="assets/Logo MySam.png" class="logo-img" alt="MySam"/></div>
+          <div><span class="logo-text">MySam</span><span class="logo-sub" style="color:rgba(255,255,255,.4)">Conseil &amp; Service</span></div>
+        </a>
+        <p>MySam accompagne entreprises, particuliers et publics fragilis&eacute;s vers des solutions concr&egrave;tes, humaines et durables. Parce que chaque parcours m&eacute;rite une attention singuli&egrave;re.</p>
+        <div class="ft-social">
+          <a href="#" class="soc" aria-label="LinkedIn">in</a>
+          <a href="#" class="soc" aria-label="Twitter">&#120143;</a>
+          <a href="#" class="soc" aria-label="Facebook">f</a>
+          <a href="#" class="soc" aria-label="Instagram">&#9678;</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html#home">Accueil</a></li>
+          <li><a href="index.html#home">Solutions Entreprises</a></li>
+          <li><a href="index.html#particuliers">Accompagnement Particuliers</a></li>
+          <li><a href="index.html#zodiac">Programme Zodiac</a></li>
+          <li><a href="actualites.html">Actualit&eacute;s</a></li>
+          <li><a href="rendezvous.html">Prendre rendez-vous</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Ressources</h4>
+        <ul>
+          <li><a href="actualites.html">Blog &amp; Conseils</a></li>
+          <li><a href="actualites.html">Guides pratiques</a></li>
+          <li><a href="index.html#temoignages">T&eacute;moignages</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+          <li><a href="connexion.html">Espace client</a></li>
+          <li><a href="index.html#zodiac">Nos partenaires</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Nous contacter</h4>
+        <div class="ft-contacts">
+          <div class="fci"><div class="fci-ico">📍</div><div><strong>Adresse</strong><span>Paris, France &mdash; pr&eacute;sentiel &amp; distanciel</span></div></div>
+          <div class="fci"><div class="fci-ico">✉️</div><div><strong>Email</strong><span>contact@mysam-conseil.fr</span></div></div>
+          <div class="fci"><div class="fci-ico">📞</div><div><strong>T&eacute;l&eacute;phone</strong><span>+33 (0)1 XX XX XX XX</span></div></div>
+          <div class="fci"><div class="fci-ico">🕐</div><div><strong>Disponibilit&eacute;</strong><span>Lun&ndash;Ven, 9h&ndash;18h</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>&copy; 2025 MySam Conseil &amp; Service. Tous droits r&eacute;serv&eacute;s.</p>
+      <div class="ft-links">
+        <a href="mentions-legales.html">Mentions l&eacute;gales</a>
+        <a href="politique-confidentialite.html">Politique de confidentialit&eacute;</a>
+        <a href="cgu.html">CGU</a>
+        <a href="accessibilite.html">Accessibilit&eacute;</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="stop" id="stop" aria-label="Retour en haut">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<!-- ============================================================
+     SCRIPTS  (all at end-of-body so DOM is ready)
+============================================================ -->
+<script>
+"use strict";
+
+/* ── 1. NAVBAR ──────────────────────────────────────────────── */
+(function(){
+  var nb = document.getElementById('navbar');
+  var st = document.getElementById('stop');
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    nb.classList.toggle('s', y > 20);
+    st.classList.toggle('on', y > 400);
+  });
+  st.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+  var hb = document.querySelector('.hburg');
+  if(hb) hb.addEventListener('click', function(){
+    this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true');
+  });
+})();
+
+/* ── 2. SCROLL REVEAL ───────────────────────────────────────── */
+(function(){
+  var els = document.querySelectorAll('.fu');
+  if(!window.IntersectionObserver){ els.forEach(function(e){e.classList.add('on');}); return; }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); }
+    });
+  },{threshold:0.10});
+  els.forEach(function(e){ obs.observe(e); });
+})();
+
+/* ── 3. PARTICLES ───────────────────────────────────────────── */
+(function(){
+  var c = document.getElementById('ipts');
+  if(!c) return;
+  for(var i=0;i<60;i++){
+    var s = document.createElement('span');
+    var sz = Math.random()*3+1;
+    s.style.cssText = 'width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*4+2)+'s;animation-delay:'+(Math.random()*5)+'s;';
+    c.appendChild(s);
+  }
+})();
+
+/* ── 4. MANNEQUIN PARALLAX ──────────────────────────────────── */
+(function(){
+  var stage = document.querySelector('.mq-stage');
+  var wrap  = document.getElementById('mq-wrap');
+  if(!stage || !wrap) return;
+  var ticking = false;
+  document.addEventListener('mousemove', function(e){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var r  = stage.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width/2))  / r.width;
+      var dy = (e.clientY - (r.top  + r.height/2)) / r.height;
+      wrap.style.transform = 'perspective(800px) rotateY('+(dx*18)+'deg) rotateX('+(-dy*12)+'deg) translateZ(10px)';
+      ticking = false;
+    });
+  });
+  stage.addEventListener('mouseleave', function(){
+    wrap.style.transition = 'transform .6s ease';
+    wrap.style.transform  = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+  });
+  stage.addEventListener('mouseenter', function(){
+    wrap.style.transition = 'transform .08s linear';
+  });
+})();
+
+/* ── 5. PRICING TOGGLE + NUMBER ANIMATION + PROFILE SELECTOR ─── */
+(function(){
+  var yearly  = false;
+  var profile = 'particulier';
+  var tsw     = document.getElementById('tsw');
+  var tlm     = document.getElementById('tlm');
+  var tly     = document.getElementById('tly');
+  var benBtns = document.querySelectorAll('.ben-btn');
+
+  var amtEls  = {pf:document.getElementById('pf'), ps:document.getElementById('ps'), pp:document.getElementById('pp')};
+  var noteEls = {pf:document.getElementById('nf'), ps:document.getElementById('ns'), pp:document.getElementById('np')};
+  var nameEls = document.querySelectorAll('.plan-name');
+  var featEls = document.querySelectorAll('.plan-feats');
+
+  var data = {
+    particulier: [
+      {name:'D&eacute;couverte', mo:0,   yr:0,   feats:['1 session de diagnostic','Acc&egrave;s aux ressources en ligne','Newsletter MySam']},
+      {name:'Starter',      mo:79,  yr:59,  feats:['3 s&eacute;ances de coaching / mois','Bilan de comp&eacute;tences initial','Plan d’action personnalis&eacute;']},
+      {name:'Pro',          mo:149, yr:112, feats:['S&eacute;ances illimit&eacute;es','Acc&egrave;s tous programmes MySam','Rapport de progression mensuel']}
+    ],
+    entreprise: [
+      {name:'Essentiel',   mo:129, yr:99,  feats:['Audit RH & diagnostic','Plan d’action op&eacute;rationnel','3 ateliers / trimestre']},
+      {name:'Business',     mo:249, yr:199, feats:['Accompagnement d&rsquo;&eacute;quipe','Ateliers th&eacute;matiques','Support strat&eacute;gique continu']},
+      {name:'Sur-mesure',   mo:599, yr:499, feats:['Accompagnement d&eacute;di&eacute;','Formation &amp; coaching dirigeants','Tableaux de bord & reporting']}
+    ]
+  };
+
+  function lerp(a,b,t){ return Math.round(a+(b-a)*t); }
+  function easeOut(t){ return 1-Math.pow(1-t,3); }
+
+  function animNum(el, from, to){
+    if(from===to) return;
+    var start = null;
+    var dur   = 380;
+    el.classList.remove('flip');
+    void el.offsetWidth;
+    el.classList.add('flip');
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      el.textContent = lerp(from, to, easeOut(p));
+      if(p < 1) requestAnimationFrame(step);
+      else { el.textContent = to; el.classList.remove('flip'); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function renderProfile(p, yr){
+    var set = data[p];
+    set.forEach(function(pl, i){
+      if(nameEls[i]) nameEls[i].innerHTML = pl.name;
+      var amtEl = (i===0?amtEls.pf:(i===1?amtEls.ps:amtEls.pp));
+      var noteEl= (i===0?noteEls.pf:(i===1?noteEls.ps:noteEls.pp));
+      var from = parseInt(amtEl.textContent,10) || 0;
+      var to   = yr ? pl.yr : pl.mo;
+      animNum(amtEl, from, to);
+      if(yr && pl.yr>0){ noteEl.textContent = 'Factur&eacute; '+(pl.yr*12)+'\u00A0€/an — &eacute;conomisez '+((pl.mo-pl.yr)*12)+'\u00A0€'; }
+      else { noteEl.textContent = '\u00A0'; }
+      if(featEls[i]){
+        featEls[i].innerHTML = pl.feats.map(function(f){
+          return '<li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>'+f+'</li>';
+        }).join('');
+      }
+    });
+    tsw.classList.toggle('yr', yr);
+    tlm.classList.toggle('act', !yr);
+    tly.classList.toggle('act',  yr);
+  }
+
+  /* initial render */
+  renderProfile(profile, yearly);
+
+  tsw.addEventListener('click', function(){ yearly=!yearly; renderProfile(profile, yearly); });
+  tlm.addEventListener('click', function(){ if(yearly){ yearly=false; renderProfile(profile,false); } });
+  tly.addEventListener('click', function(){ if(!yearly){ yearly=true; renderProfile(profile,true); } });
+
+  benBtns.forEach(function(b){ b.addEventListener('click', function(){ benBtns.forEach(function(x){ x.classList.remove('act'); }); this.classList.add('act'); profile = this.getAttribute('data-profile') || 'particulier'; renderProfile(profile, yearly); }); });
+})();
+
+/* ── 6. TESTIMONIALS INFINITE SCROLL ───────────────────────── */
+(function(){
+  var data = [
+    { name:"Sophie Marchand",   role:"DRH — Groupe Industriel",          prog:"b2b",   stars:5,
+      text:"MySam a transformé notre approche RH. L’accompagnement était précis, humain et parfaitement adapté. En 3 mois, nos managers ont gagné en cohésion.",
+      img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80"},
+    { name:"Thomas Reyes",      role:"En reconversion professionnelle",        prog:"b2c",   stars:5,
+      text:"Après 10 ans dans la finance, MySam m’a aidé à structurer mon projet et prendre confiance. Je suis coach agréé aujourd’hui.",
+      img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80"},
+    { name:"Amina Diallo",      role:"Bénéficiaire Programme Zodiac", prog:"zodiac",stars:5,
+      text:"Après deux ans d’inactivité, l’équipe MySam m’a accueillie sans jugement et accompagnée étape par étape. J’ai retrouvé un emploi stable en 4 mois.",
+      img:"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&q=80"},
+    { name:"Laurent Beaumont",  role:"Directeur Commercial — PME",         prog:"b2b",   stars:5,
+      text:"La formation en communication interne a eu un impact immédiat. Nos équipes ont enfin un langage commun. Je recommande vivement.",
+      img:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80"},
+    { name:"Clara Fontaine",    role:"Jeune diplômée, 1er emploi",   prog:"b2c",   stars:5,
+      text:"Sans le coaching de MySam, je n’aurais pas décroché mon poste. La préparation aux entretiens était excellente — précise, bienveillante, efficace.",
+      img:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=80&q=80"},
+    { name:"Karim Saïdi",  role:"Bénéficiaire Programme Zodiac", prog:"zodiac",stars:5,
+      text:"Le programme m’a redonné envie. Les ateliers collectifs m’ont permis de me sentir moins seul. Merci à toute l’équipe pour leur patience.",
+      img:"https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=80&q=80"},
+    { name:"Isabelle Moreau",   role:"RRH — Secteur Santé",           prog:"b2b",   stars:5,
+      text:"MySam a accompagné une restructuration délicate avec une approche empathique et structurée, préservant la cohésion d’équipe dans un contexte tendu.",
+      img:"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80"},
+    { name:"Nadia Benali",      role:"Chercheuse d’emploi — 45 ans",  prog:"b2c",   stars:5,
+      text:"À 45 ans, reprendre le marché du travail semblait insurmontable. Mon CV a été repensé et je suis embauchée chez un grand groupe.",
+      img:"https://images.unsplash.com/photo-1584999734482-0361aecad844?w=80&q=80"},
+    { name:"Pierre-Antoine Lévy", role:"CEO — Startup Tech",          prog:"b2b",   stars:5,
+      text:"En phase de scale-up, MySam nous a permis d’aligner toute l’organisation sur une vision claire. Un investissement rentable.",
+      img:"https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80"}
+  ];
+
+  var progLabel = {b2b:'Entreprise', b2c:'Particulier', zodiac:'Programme Zodiac'};
+
+  function card(t){
+    var stars = '★'.repeat(t.stars)+'☆'.repeat(5-t.stars);
+    return '<div class="tc">'
+      +'<div class="tc-stars">'+stars.split('').map(function(s){return'<span>'+s+'</span>';}).join('')+'</div>'
+      +'<p class="tc-txt">“'+t.text+'”</p>'
+      +'<div class="tc-auth">'
+      +'<img class="tc-av" src="'+t.img+'" alt="'+t.name+'" loading="lazy"/>'
+      +'<div><div class="tc-name">'+t.name+'</div>'
+      +'<div class="tc-role">'+t.role+'</div>'
+      +'<span class="tc-prog pr-'+t.prog+'">'+progLabel[t.prog]+'</span></div>'
+      +'</div></div>';
+  }
+
+  /* distribute 3 cards per column, then duplicate for seamless loop */
+  var cols   = [document.getElementById('tc1'), document.getElementById('tc2'), document.getElementById('tc3')];
+  var groups = [[0,3,6],[1,4,7],[2,5,8]];
+  var durations = [18000, 24000, 20000]; /* ms */
+
+  groups.forEach(function(idxs, ci){
+    var col = cols[ci];
+    if(!col) return;
+    var cards = idxs.map(function(i){ return data[i % data.length]; });
+    /* build original set */
+    var html = cards.map(card).join('');
+    col.innerHTML = html + html; /* duplicate for seamless scroll */
+  });
+
+  /* after paint, measure actual half-height and start animation */
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      groups.forEach(function(_, ci){
+        var col = cols[ci];
+        if(!col) return;
+        var half = col.scrollHeight / 2;
+        var dur  = durations[ci];
+        /* inject keyframes dynamically */
+        var name = 'scroll'+ci;
+        var styleEl = document.createElement('style');
+        styleEl.textContent = '@keyframes '+name+'{0%{transform:translateY(0)}100%{transform:translateY(-'+half+'px)}}';
+        document.head.appendChild(styleEl);
+        col.style.animation = name+' '+dur+'ms linear infinite';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

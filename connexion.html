@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Connexion — MySam</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--dp:#3B1F6B;--mp:#5A2FA3;--sp:#7B4FCF;--ll:#EDE7FF;--or:#FF6B35;--wh:#FFFFFF;--td:#1A1030;--tm:#4A3870;--tl:#8270AA;--bd:#E0D8F5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter, sans-serif;color:var(--td);background:var(--wh)}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.nav{background:rgba(255,255,255,.96);border-bottom:1px solid var(--bd);position:sticky;top:0}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.logo-mark{width:40px;height:40px;border-radius:8px;overflow:hidden}
+.logo-img{width:40px;height:40px;display:block}
+.nav-links{display:flex;gap:12px}
+.nav-links a{color:var(--tm);text-decoration:none;padding:8px 10px;border-radius:8px}
+.nav-links a:hover{background:var(--ll)}
+.nav-acts{display:flex;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:40px;font-weight:700}
+.btn-or{background:var(--or);color:var(--wh)}
+footer{background:var(--td);color:rgba(255,255,255,.8);padding:40px 24px;margin-top:40px}
+.ft-grid{display:flex;gap:24px;flex-wrap:wrap}
+.ft-brand{flex:2}
+.ft-col{flex:1}
+.ft-links a{color:rgba(255,255,255,.8);text-decoration:none}
+.form{background:#fff;border:1px solid var(--bd);padding:18px;border-radius:12px;max-width:420px}
+.form input{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;margin-bottom:10px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav-in">
+    <a href="index.html#home" class="logo">
+      <div class="logo-mark"><img src="assets/Logo MySam.png" class="logo-img" alt="MySam"></div>
+      <div>
+        <div style="font-weight:700">MySam</div>
+        <div style="font-size:.7rem;color:var(--tl)">Conseil & Service</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#home">Accueil</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="rendezvous.html">Rendez-vous</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-acts">
+      <a href="connexion.html" class="btn">Se connecter</a>
+      <a href="contact.html" class="btn btn-or">Contactez-nous</a>
+    </div>
+  </div>
+</nav>
+<main class="container">
+  <h1 style="font-family:Playfair Display, serif;font-size:2rem;margin:18px 0">Connexion</h1>
+  <p style="margin-bottom:18px;color:var(--tm)">Accédez à votre espace client.</p>
+  <div class="form">
+    <label>Email</label>
+    <input type="email" placeholder="votre@email.fr" />
+    <label>Mot de passe</label>
+    <input type="password" placeholder="Mot de passe" />
+    <button class="btn btn-or">Se connecter</button>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a href="index.html#home" class="logo" style="text-decoration:none;color:inherit"><div class="logo-mark"><img src="assets/Logo MySam.png" class="logo-img" alt="MySam"></div></a>
+        <p style="margin-top:12px;max-width:320px;color:rgba(255,255,255,.8)">MySam accompagne entreprises, particuliers et publics fragilisés vers des solutions concrètes, humaines et durables.</p>
+      </div>
+      <div class="ft-col">
+        <h4 style="color:var(--wh);margin-bottom:8px">Navigation</h4>
+        <ul style="list-style:none;padding:0;color:rgba(255,255,255,.9)">
+          <li><a href="index.html#home">Accueil</a></li>
+          <li><a href="index.html#particuliers">Particuliers</a></li>
+          <li><a href="index.html#zodiac">Programme Zodiac</a></li>
+          <li><a href="actualites.html">Actualités</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
