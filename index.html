@@ -25,26 +25,60 @@ section{position:relative}
 ul{list-style:none}
 .container{max-width:1200px;margin:0 auto;padding:0 32px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-size:.95rem;font-weight:600;letter-spacing:.02em;cursor:pointer;border:none;text-decoration:none;transition:all .25s ease;white-space:nowrap}
-.btn-or{background:var(--or);color:var(--wh)}
-.btn-or:hover{background:var(--oh);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.35)}
-.btn-wh{background:var(--wh);color:var(--dp)}
-.btn-wh:hover{background:var(--ll);transform:translateY(-2px);box-shadow:0 8px 24px rgba(90,47,163,.18)}
-.btn-pu{background:var(--mp);color:var(--wh)}
-.btn-pu:hover{background:var(--dp);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,31,107,.3)}
-.btn-owh{background:transparent;color:var(--wh);border:2px solid var(--wh)}
-.btn-owh:hover{background:var(--wh);color:var(--dp);transform:translateY(-2px)}
+.btn-or{background:var(--or);color:var(--wh)}.btn-or:hover{background:var(--oh);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.35)}
+.btn-wh{background:var(--wh);color:var(--dp)}.btn-wh:hover{background:var(--ll);transform:translateY(-2px)}
+.btn-pu{background:var(--mp);color:var(--wh)}.btn-pu:hover{background:var(--dp);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,31,107,.3)}
+.btn-owh{background:transparent;color:var(--wh);border:2px solid var(--wh)}.btn-owh:hover{background:var(--wh);color:var(--dp);transform:translateY(-2px)}
 .sec-label{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mp);margin-bottom:12px}
 .sec-label-line{width:28px;height:2px;background:var(--or);border-radius:2px;flex-shrink:0}
 .fu{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
 .fu.on{opacity:1;transform:translateY(0)}
 .fu.d1{transition-delay:.1s}.fu.d2{transition-delay:.2s}.fu.d3{transition-delay:.3s}
 
-/* ===== NAVBAR ===== */
+/* CLARK — redesign professionnel */
+.clark-wrap{position:fixed;right:20px;bottom:160px;z-index:300;display:flex;flex-direction:column;align-items:center;cursor:pointer;user-select:none}
+.clark-thread{width:1.5px;height:40px;background:linear-gradient(to bottom,transparent,rgba(90,47,163,.6));margin:0 auto;animation:threadpulse 4s ease-in-out infinite}
+@keyframes threadpulse{0%,100%{height:40px}50%{height:56px}}
+.clark-icon{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--dp),var(--mp));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(59,31,107,.4);animation:clarkbob 4s ease-in-out infinite;transition:box-shadow .3s,transform .3s;position:relative}
+.clark-icon:hover{box-shadow:0 6px 24px rgba(59,31,107,.6);transform:scale(1.08)}
+@keyframes clarkbob{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
+.clark-legs{position:absolute;width:100%;height:100%;top:0;left:0}
+.clark-icon svg{position:relative;z-index:1}
+.clark-badge{background:var(--dp);color:#fff;border-radius:50px;padding:3px 9px;font-size:.65rem;font-weight:700;margin-top:5px;letter-spacing:.04em;box-shadow:0 2px 8px rgba(59,31,107,.3)}
+
+/* CLARK MODAL */
+.clark-modal{position:fixed;bottom:230px;right:20px;width:310px;background:var(--wh);border-radius:20px;box-shadow:0 20px 60px rgba(59,31,107,.2);z-index:400;display:none;flex-direction:column;overflow:hidden;max-height:460px;border:1px solid var(--bd)}
+.clark-modal.open{display:flex}
+.clark-mhead{background:linear-gradient(135deg,var(--dp),var(--mp));padding:14px 18px;display:flex;align-items:center;gap:10px}
+.clark-mhead-ico{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.clark-mhead h3{color:#fff;font-size:.92rem;font-weight:700;flex:1}
+.clark-mhead p{color:rgba(255,255,255,.6);font-size:.72rem}
+.clark-mclose{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer;padding:4px 6px;border-radius:6px;margin-left:auto}
+.clark-mclose:hover{background:rgba(255,255,255,.15);color:#fff}
+.clark-online{width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:4px}
+.clark-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.clark-msg{max-width:88%;border-radius:14px;padding:9px 13px;font-size:.84rem;line-height:1.55}
+.clark-msg.bot{background:var(--ll);color:var(--td);align-self:flex-start;border-bottom-left-radius:3px}
+.clark-msg.user{background:var(--mp);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.clark-typing{display:flex;gap:4px;align-items:center;padding:6px 0}
+.clark-dot{width:6px;height:6px;border-radius:50%;background:var(--tl);animation:cdot 1.2s ease-in-out infinite}
+.clark-dot:nth-child(2){animation-delay:.2s}.clark-dot:nth-child(3){animation-delay:.4s}
+@keyframes cdot{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.clark-input-row{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--bd)}
+.clark-input{flex:1;padding:9px 12px;border:1.5px solid var(--bd);border-radius:10px;font-family:inherit;font-size:.84rem;outline:none;transition:border-color .2s}
+.clark-input:focus{border-color:var(--mp)}
+.clark-send{padding:9px 14px;background:var(--mp);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.84rem;transition:background .2s}
+.clark-send:hover{background:var(--dp)}
+.clark-opts{padding:10px 14px 14px;display:flex;flex-direction:column;gap:6px}
+.clark-opt{background:var(--ow);border:1.5px solid var(--bd);border-radius:10px;padding:9px 13px;font-size:.82rem;font-weight:500;color:var(--dp);cursor:pointer;text-align:left;transition:all .2s;font-family:inherit}
+.clark-opt:hover{background:var(--mp);color:#fff;border-color:var(--mp)}
+
+/* NAVBAR */
 .nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);transition:box-shadow .3s}
 .nav.s{box-shadow:0 4px 32px rgba(59,31,107,.10)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
 .logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.logo-mark{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-mark{width:40px;height:40px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .logo-img{width:40px;height:40px;object-fit:contain;display:block}
 .logo-text{font-weight:700;font-size:1.2rem;color:var(--dp)}
 .logo-sub{font-size:.65rem;color:var(--tl);font-weight:400;letter-spacing:.08em;text-transform:uppercase;display:block;line-height:1}
@@ -52,38 +86,12 @@ ul{list-style:none}
 .nav-links a{padding:8px 14px;border-radius:8px;font-size:.9rem;font-weight:500;color:var(--tm);transition:all .2s}
 .nav-links a:hover{color:var(--mp);background:var(--ll)}
 .nav-acts{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.nav-srch{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tl);transition:all .2s}
-.nav-srch:hover{background:var(--ll);color:var(--mp);border-color:var(--sp)}
 .nav-login{font-size:.875rem;font-weight:500;color:var(--mp);padding:8px 12px;border-radius:8px;transition:all .2s}
 .nav-login:hover{background:var(--ll)}
 .hburg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;border:none;background:none}
-.hburg span{display:block;width:22px;height:2px;background:var(--dp);border-radius:2px;transition:all .3s}
+.hburg span{display:block;width:22px;height:2px;background:var(--dp);border-radius:2px}
 
-/* ===== CLARK SPIDER ===== */
-.clark-wrap{position:fixed;right:20px;bottom:90px;z-index:300;display:flex;flex-direction:column;align-items:center;cursor:pointer}
-.clark-thread{width:2px;height:50px;background:linear-gradient(to bottom,rgba(90,47,163,.3),rgba(90,47,163,.7));margin:0 auto;animation:threadpulse 3s ease-in-out infinite}
-@keyframes threadpulse{0%,100%{height:50px;opacity:.7}50%{height:70px;opacity:1}}
-.clark-body{animation:clarkbob 3s ease-in-out infinite;transition:transform .3s;filter:drop-shadow(0 4px 12px rgba(90,47,163,.4))}
-@keyframes clarkbob{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
-.clark-body:hover{filter:drop-shadow(0 6px 20px rgba(90,47,163,.7)) brightness(1.1)}
-.clark-tag{background:var(--mp);color:#fff;border-radius:50px;padding:3px 10px;font-size:.68rem;font-weight:700;margin-top:4px;white-space:nowrap;box-shadow:0 2px 8px rgba(90,47,163,.3)}
-
-/* CLARK MODAL */
-.clark-modal{position:fixed;bottom:210px;right:20px;width:300px;background:var(--wh);border-radius:20px;box-shadow:0 20px 60px rgba(59,31,107,.2);z-index:400;display:none;flex-direction:column;overflow:hidden;max-height:440px;border:1px solid var(--bd)}
-.clark-modal.open{display:flex}
-.clark-mhead{background:linear-gradient(135deg,var(--dp),var(--mp));padding:14px 18px;display:flex;align-items:center;gap:10px}
-.clark-mhead h3{color:#fff;font-size:.95rem;font-weight:700;flex:1}
-.clark-mclose{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer;padding:2px 6px;border-radius:6px}
-.clark-mclose:hover{background:rgba(255,255,255,.15);color:#fff}
-.clark-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-.clark-msg{max-width:88%;border-radius:14px;padding:9px 13px;font-size:.85rem;line-height:1.5}
-.clark-msg.bot{background:var(--ll);color:var(--td);align-self:flex-start;border-bottom-left-radius:3px}
-.clark-msg.user{background:var(--mp);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
-.clark-opts{padding:10px 14px 14px;display:flex;flex-direction:column;gap:6px}
-.clark-opt{background:var(--ow);border:1.5px solid var(--bd);border-radius:10px;padding:9px 13px;font-size:.82rem;font-weight:500;color:var(--dp);cursor:pointer;text-align:left;transition:all .2s;font-family:inherit}
-.clark-opt:hover{background:var(--mp);color:#fff;border-color:var(--mp)}
-
-/* ===== INTRO ===== */
+/* INTRO */
 .intro{min-height:100vh;display:flex;align-items:center;background:#07040F;overflow:hidden;padding-top:72px}
 .intro-spot{position:absolute;top:-120px;left:-80px;pointer-events:none;width:700px;height:700px;border-radius:50%;background:radial-gradient(ellipse at 30% 20%,rgba(123,79,207,.55) 0%,rgba(90,47,163,.2) 40%,transparent 70%);animation:spot 6s ease-in-out infinite}
 @keyframes spot{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
@@ -92,247 +100,233 @@ ul{list-style:none}
 @keyframes twkl{0%,100%{opacity:0}50%{opacity:1}}
 .intro-fade{position:absolute;bottom:0;left:0;right:0;height:120px;pointer-events:none;background:linear-gradient(transparent,#07040F)}
 .intro-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:80px 0}
-.intro-eye{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lm);margin-bottom:24px}
-.eye-pulse{width:8px;height:8px;border-radius:50%;background:var(--or);box-shadow:0 0 0 0 rgba(255,107,53,.6);animation:opulse 2s ease-out infinite}
+.intro-launch{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.35);border-radius:50px;padding:5px 14px;font-size:.72rem;font-weight:700;color:#FF9A5C;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.intro-eye{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lm);margin-bottom:20px}
+.eye-pulse{width:8px;height:8px;border-radius:50%;background:var(--or);animation:opulse 2s ease-out infinite}
 @keyframes opulse{0%{box-shadow:0 0 0 0 rgba(255,107,53,.6)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
-.intro-h1{font-size:clamp(2.4rem,4.5vw,3.8rem);font-weight:900;line-height:1.08;margin-bottom:28px;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 30%,var(--lm) 70%,rgba(255,107,53,.9) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.intro-sub{font-size:1.05rem;line-height:1.75;color:rgba(255,255,255,.6);margin-bottom:40px;max-width:460px}
-.intro-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:52px}
-.intro-badges{display:flex;gap:16px;flex-wrap:wrap}
-.intro-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px}
-.intro-badge span{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.65)}
-.mq-stage{position:relative;display:flex;align-items:center;justify-content:center;height:600px}
-.mq-glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(ellipse,rgba(90,47,163,.5) 0%,transparent 70%);animation:mglow 4s ease-in-out infinite}
-@keyframes mglow{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.15);opacity:1}}
-.orbit{position:absolute;border-radius:50%;border:1px solid rgba(123,79,207,.3);animation:ospin linear infinite}
-.orbit-a{width:320px;height:320px;animation-duration:18s}
-.orbit-b{width:440px;height:440px;animation-duration:28s;animation-direction:reverse;border-color:rgba(255,107,53,.15)}
-@keyframes ospin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;top:-4px;left:50%;transform:translateX(-50%)}
-.orbit-a .orbit-dot{background:var(--sp);box-shadow:0 0 10px var(--sp)}
-.orbit-b .orbit-dot{background:var(--or);box-shadow:0 0 10px var(--or)}
-#mq-wrap{position:relative;z-index:2;cursor:crosshair;filter:drop-shadow(0 0 32px rgba(123,79,207,.7));transition:transform .6s ease}
-#mq-wrap svg{width:260px;height:auto}
-@keyframes armwave{0%,100%{transform-origin:70% 35%;transform:rotate(0deg)}30%{transform-origin:70% 35%;transform:rotate(-18deg)}60%{transform-origin:70% 35%;transform:rotate(8deg)}}
-#arm-r{animation:armwave 3.5s ease-in-out infinite}
-@keyframes breathe{0%,100%{transform:scaleY(1);transform-origin:center bottom}50%{transform:scaleY(1.015);transform-origin:center bottom}}
-#torso{animation:breathe 3s ease-in-out infinite}
-@keyframes headnod{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-#head{animation:headnod 3s ease-in-out infinite}
-.chip{position:absolute;background:rgba(20,10,40,.85);backdrop-filter:blur(10px);border:1px solid rgba(123,79,207,.4);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;animation:chipfloat ease-in-out infinite;white-space:nowrap;z-index:3}
-@keyframes chipfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.chip-ico{font-size:1rem}
-.chip-txt strong{display:block;font-size:.78rem;font-weight:700;color:var(--wh);line-height:1.2}
-.chip-txt span{font-size:.7rem;color:rgba(255,255,255,.45)}
-.c1{top:14%;right:2%;animation-duration:4.2s}
-.c2{bottom:22%;left:0%;animation-duration:5.1s;animation-delay:.8s}
-.c3{top:48%;right:-2%;animation-duration:3.8s;animation-delay:1.4s}
-.c4{top:10%;left:5%;animation-duration:4.6s;animation-delay:.4s}
+.intro-h1{font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:900;line-height:1.08;margin-bottom:24px;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 30%,var(--lm) 70%,rgba(255,107,53,.9) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.intro-sub{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.6);margin-bottom:40px;max-width:460px}
+.intro-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.intro-badges{display:flex;gap:12px;flex-wrap:wrap}
+.intro-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:7px 14px}
+.intro-badge span{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.65)}
 
-/* ===== HERO B2B ===== */
+/* PROFESSIONAL PHOTO STAGE */
+.mq-stage{position:relative;display:flex;align-items:center;justify-content:center;height:580px}
+.mq-glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(ellipse,rgba(90,47,163,.5) 0%,transparent 70%);animation:mglow 4s ease-in-out infinite}
+@keyframes mglow{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.15);opacity:1}}
+.orbit{position:absolute;border-radius:50%;border:1px solid rgba(123,79,207,.25);animation:ospin linear infinite}
+.orbit-a{width:300px;height:300px;animation-duration:18s}
+.orbit-b{width:420px;height:420px;animation-duration:28s;animation-direction:reverse;border-color:rgba(255,107,53,.12)}
+@keyframes ospin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.orbit-dot{position:absolute;width:7px;height:7px;border-radius:50%;top:-3.5px;left:50%;transform:translateX(-50%)}
+.orbit-a .orbit-dot{background:var(--sp);box-shadow:0 0 8px var(--sp)}
+.orbit-b .orbit-dot{background:var(--or);box-shadow:0 0 8px var(--or)}
+.prof-frame{position:relative;z-index:2;width:270px;height:370px;border-radius:24px;overflow:hidden;border:2px solid rgba(123,79,207,.4);box-shadow:0 0 40px rgba(90,47,163,.5),0 0 80px rgba(90,47,163,.2);animation:profbob 5s ease-in-out infinite}
+@keyframes profbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.prof-frame img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.prof-frame-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(59,31,107,.1) 0%,rgba(7,4,15,.6) 100%)}
+.chip{position:absolute;background:rgba(20,10,40,.85);backdrop-filter:blur(10px);border:1px solid rgba(123,79,207,.4);border-radius:12px;padding:9px 13px;display:flex;align-items:center;gap:8px;animation:chipfloat ease-in-out infinite;white-space:nowrap;z-index:3}
+@keyframes chipfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.chip-ico{font-size:.95rem}
+.chip-txt strong{display:block;font-size:.75rem;font-weight:700;color:var(--wh);line-height:1.2}
+.chip-txt span{font-size:.68rem;color:rgba(255,255,255,.45)}
+.c1{top:12%;right:0%;animation-duration:4.2s}
+.c2{bottom:20%;left:-4%;animation-duration:5.1s;animation-delay:.8s}
+.c3{top:50%;right:-4%;animation-duration:3.8s;animation-delay:1.4s}
+
+/* HERO B2B */
 .hero{min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:72px}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,31,107,.82) 0%,rgba(90,47,163,.55) 50%,rgba(59,31,107,.25) 100%),url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1800&q=80') center/cover no-repeat}
 .hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(123,79,207,.3) 0%,transparent 70%)}
-.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 480px;gap:60px;align-items:center;padding:80px 0}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 460px;gap:60px;align-items:center;padding:80px 0}
 .hero-brow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);border-radius:50px;padding:6px 16px;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
 .hero-brow-dot{width:8px;height:8px;border-radius:50%;background:var(--or)}
-.hero-h2{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4rem);line-height:1.1;color:var(--wh);margin-bottom:24px;font-weight:700}
+.hero-h2{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.1;color:var(--wh);margin-bottom:24px;font-weight:700}
 .hero-h2 em{font-style:normal;color:var(--lm)}
 .hero-p{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,.82);max-width:500px;margin-bottom:36px}
 .hero-stats{display:flex;gap:32px;margin-top:48px}
 .stat{border-left:3px solid var(--or);padding-left:16px}
 .stat-n{font-size:1.8rem;font-weight:800;color:var(--wh);line-height:1}
-.stat-l{font-size:.78rem;color:rgba(255,255,255,.65);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
-.hero-card{background:rgba(255,255,255,.10);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:40px;box-shadow:0 24px 64px rgba(0,0,0,.2)}
-.hero-card-ico{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--or),#FF9A5C);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.4rem}
-.hero-card h3{font-size:1.3rem;font-weight:700;color:var(--wh);margin-bottom:16px}
-.hero-card p{font-size:.95rem;line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:28px}
-.card-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
-.tag{padding:6px 14px;border-radius:50px;font-size:.78rem;font-weight:500;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2)}
+.stat-l{font-size:.75rem;color:rgba(255,255,255,.65);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
+.hero-card{background:rgba(255,255,255,.10);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:36px;box-shadow:0 24px 64px rgba(0,0,0,.2)}
+.hero-card-ico{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--or),#FF9A5C);display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:1.3rem}
+.hero-card h3{font-size:1.2rem;font-weight:700;color:var(--wh);margin-bottom:14px}
+.hero-card p{font-size:.92rem;line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:24px}
+.card-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tag{padding:5px 12px;border-radius:50px;font-size:.75rem;font-weight:500;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2)}
 
-/* ===== ACCOMPAGNEMENT PARTICULIERS HERO ===== */
-.part-hero{min-height:90vh;display:flex;align-items:center;overflow:hidden;padding-top:72px}
-.part-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(123,79,207,.88) 0%,rgba(59,31,107,.65) 50%,rgba(255,107,53,.25) 100%),url('https://images.unsplash.com/photo-1573497161161-c3e73707e25c?w=1800&q=80') center/cover no-repeat}
-.part-hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(255,107,53,.2) 0%,transparent 65%)}
-.part-hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 440px;gap:60px;align-items:center;padding:80px 0}
-.part-hero-card{background:rgba(255,255,255,.10);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:36px;box-shadow:0 24px 64px rgba(0,0,0,.2)}
-.part-hero-card h3{font-size:1.2rem;font-weight:700;color:var(--wh);margin-bottom:20px}
-.part-services{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
-.part-svc{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);transition:all .25s;text-decoration:none}
-.part-svc:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);transform:translateX(4px)}
-.part-svc-ico{font-size:1.4rem;flex-shrink:0}
-.part-svc strong{display:block;font-size:.9rem;font-weight:700;color:var(--wh)}
-.part-svc span{font-size:.78rem;color:rgba(255,255,255,.6)}
-
-/* ===== B2C ===== */
+/* B2C — ACCOMPAGNEMENT PARTICULIERS (original style) */
 .b2c{padding:120px 0;background:var(--ow)}
 .b2c-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.b2c-img{border-radius:28px;overflow:hidden;box-shadow:0 32px 80px rgba(59,31,107,.18)}
-.b2c-img img{width:100%;height:560px;object-fit:cover;transition:transform .6s ease}
-.b2c-img:hover img{transform:scale(1.03)}
-.b2c-badge{position:absolute;bottom:28px;left:28px;background:var(--wh);border-radius:16px;padding:16px 20px;box-shadow:0 8px 32px rgba(59,31,107,.15);display:flex;align-items:center;gap:14px}
-.b2c-badge-ico{font-size:1.6rem}
-.b2c-badge strong{display:block;font-size:.9rem;font-weight:700;color:var(--td)}
-.b2c-badge span{font-size:.78rem;color:var(--tl)}
+.b2c-img{border-radius:28px;overflow:hidden;box-shadow:0 32px 80px rgba(59,31,107,.18);position:relative}
+.b2c-img img{width:100%;height:520px;object-fit:cover}
+.b2c-badge{position:absolute;bottom:24px;left:24px;background:var(--wh);border-radius:16px;padding:14px 18px;box-shadow:0 8px 32px rgba(59,31,107,.15);display:flex;align-items:center;gap:12px}
+.b2c-badge-ico{font-size:1.4rem}
+.b2c-badge strong{display:block;font-size:.88rem;font-weight:700;color:var(--td)}
+.b2c-badge span{font-size:.75rem;color:var(--tl)}
 .b2c-cnt h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;color:var(--dp);line-height:1.2;margin-bottom:20px}
 .b2c-cnt h2 span{color:var(--sp)}
 .b2c-cnt p{font-size:1rem;line-height:1.75;color:var(--tm);margin-bottom:28px}
-.feat-list{display:flex;flex-direction:column;gap:16px;margin-bottom:36px}
-.feat{display:flex;align-items:flex-start;gap:14px;padding:16px 20px;border-radius:14px;background:var(--wh);border:1px solid var(--bd);transition:all .25s}
+.feat-list{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.feat{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-radius:14px;background:var(--wh);border:1px solid var(--bd);transition:all .25s}
 .feat:hover{border-color:var(--lm);box-shadow:0 4px 20px rgba(59,31,107,.08);transform:translateX(4px)}
-.feat-ico{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-.fi-pu{background:var(--ll)}
-.fi-or{background:#FFF0EA}
-.fi-gr{background:#E8F5EE}
+.feat-ico{width:42px;height:42px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.fi-pu{background:var(--ll)}.fi-or{background:#FFF0EA}.fi-gr{background:#E8F5EE}
 .feat strong{display:block;font-size:.9rem;font-weight:600;color:var(--td);margin-bottom:2px}
-.feat span{font-size:.82rem;color:var(--tl)}
+.feat span{font-size:.8rem;color:var(--tl)}
 
-/* ===== ZODIAC ===== */
+/* ZODIAC */
 .zodiac{padding:120px 0;background:linear-gradient(160deg,var(--dp) 0%,#2A1250 50%,#1A0A3A 100%);overflow:hidden}
 .zodiac::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(123,79,207,.25) 0%,transparent 70%)}
 .zodiac-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.z-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.4);border-radius:50px;padding:6px 16px;font-size:.78rem;font-weight:700;color:#FF9A5C;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.z-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.4);border-radius:50px;padding:6px 16px;font-size:.75rem;font-weight:700;color:#FF9A5C;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
 .zodiac h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;color:var(--wh);line-height:1.2;margin-bottom:12px}
 .zodiac h2 .acc{color:var(--lm)}
-.z-sub{font-size:1.05rem;font-weight:600;color:var(--or);margin-bottom:20px;letter-spacing:.02em}
+.z-sub{font-size:1.05rem;font-weight:600;color:var(--or);margin-bottom:20px}
 .zodiac p{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.75);margin-bottom:36px}
-.pillars{display:flex;flex-direction:column;gap:16px;margin-bottom:40px}
-.pill{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);transition:all .25s}
+.pillars{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.pill{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);transition:all .25s}
 .pill:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.2)}
-.pill-n{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,var(--or),#FF9A5C);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--wh)}
-.pill strong{display:block;font-size:.9rem;font-weight:600;color:var(--wh);margin-bottom:2px}
-.pill span{font-size:.8rem;color:rgba(255,255,255,.55)}
+.pill-n{width:34px;height:34px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,var(--or),#FF9A5C);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800;color:var(--wh)}
+.pill strong{display:block;font-size:.88rem;font-weight:600;color:var(--wh);margin-bottom:2px}
+.pill span{font-size:.78rem;color:rgba(255,255,255,.55)}
 .z-img{border-radius:28px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.4)}
-.z-img img{width:100%;height:580px;object-fit:cover;transition:transform .6s ease}
-.z-img:hover img{transform:scale(1.03)}
+.z-img img{width:100%;height:560px;object-fit:cover}
 .z-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,10,58,.7) 0%,transparent 50%)}
 .z-quote{position:absolute;bottom:28px;left:28px;right:28px;color:var(--wh)}
-.z-quote blockquote{font-family:'Playfair Display',serif;font-size:1.05rem;line-height:1.5;margin-bottom:12px;font-style:italic}
-.z-quote-auth{font-size:.8rem;color:rgba(255,255,255,.65)}
-.z-ptns{margin-top:20px}
-.z-ptns-lbl{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
-.ptns{display:flex;gap:12px;flex-wrap:wrap}
-.ptn{padding:8px 18px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.8rem;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.04em}
+.z-quote blockquote{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.5;margin-bottom:10px;font-style:italic}
+.z-quote-auth{font-size:.78rem;color:rgba(255,255,255,.6)}
 
-/* ===== TRUST BAR ===== */
-.trust{padding:64px 0;background:linear-gradient(135deg,var(--ll) 0%,#F5EEFF 100%)}
+/* PARTNER LOGOS */
+.z-ptns{margin-top:20px}
+.z-ptns-lbl{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ptns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ptn-logo{height:32px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:0 12px;display:flex;align-items:center;gap:6px;transition:all .2s}
+.ptn-logo:hover{background:rgba(255,255,255,.2)}
+.ptn-logo span{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.02em}
+.ptn-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* TRUST BAR */
+.trust{padding:60px 0;background:linear-gradient(135deg,var(--ll) 0%,#F5EEFF 100%)}
 .trust-in{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
 .trust-in h3{font-size:1.4rem;font-weight:700;color:var(--dp);margin-bottom:6px}
 .trust-in p{font-size:.9rem;color:var(--tl)}
-.trust-nums{display:flex;gap:48px}
+.trust-nums{display:flex;gap:40px}
 .tn{text-align:center}
-.tn-n{font-size:2.2rem;font-weight:800;color:var(--mp);line-height:1}
-.tn-l{font-size:.78rem;color:var(--tl);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+.tn-n{font-size:2rem;font-weight:800;color:var(--mp);line-height:1}
+.tn-l{font-size:.75rem;color:var(--tl);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
 
-/* ===== PRICING ===== */
+/* PRICING */
 .pricing{padding:120px 0;background:linear-gradient(160deg,#1E0A40 0%,var(--dp) 40%,#5A2FA3 100%);overflow:hidden}
 .pricing::before{content:'';position:absolute;top:-300px;left:50%;transform:translateX(-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.08) 0%,transparent 65%)}
-.pr-head{text-align:center;margin-bottom:56px}
-.pr-eye{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:6px 18px;font-size:.78rem;font-weight:700;color:var(--lm);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
-.pr-head h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--wh);margin-bottom:14px}
-.pr-head>p{font-size:1rem;color:rgba(255,255,255,.6);max-width:480px;margin:0 auto 32px;line-height:1.7}
-.tog-wrap{display:inline-flex;align-items:center;gap:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:6px 12px}
-.tog-lbl{font-size:.88rem;font-weight:600;color:rgba(255,255,255,.45);padding:4px 12px;cursor:pointer;transition:color .2s;user-select:none}
+.pr-head{text-align:center;margin-bottom:52px}
+.pr-eye{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:6px 18px;font-size:.75rem;font-weight:700;color:var(--lm);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.pr-head h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--wh);margin-bottom:12px}
+.pr-head>p{font-size:1rem;color:rgba(255,255,255,.6);max-width:480px;margin:0 auto 28px;line-height:1.7}
+.tog-wrap{display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:6px 12px}
+.tog-lbl{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.45);padding:4px 12px;cursor:pointer;transition:color .2s;user-select:none}
 .tog-lbl.act{color:var(--wh)}
-.tog-sw{position:relative;width:52px;height:28px;border-radius:50px;background:rgba(255,255,255,.15);cursor:pointer;transition:background .3s;flex-shrink:0}
+.tog-sw{position:relative;width:48px;height:26px;border-radius:50px;background:rgba(255,255,255,.15);cursor:pointer;transition:background .3s;flex-shrink:0}
 .tog-sw.yr{background:var(--or)}
-.tog-knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--wh);transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.tog-sw.yr .tog-knob{transform:translateX(24px)}
-.sv-badge{background:rgba(255,107,53,.2);border:1px solid rgba(255,107,53,.5);border-radius:50px;padding:3px 10px;font-size:.72rem;font-weight:700;color:#FF9A5C}
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:1}
-.plan{background:rgba(255,255,255,.06);backdrop-filter:blur(20px);border:2px solid rgba(255,255,255,.12);border-radius:24px;padding:36px 32px;display:flex;flex-direction:column;transition:all .3s ease}
+.tog-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--wh);transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.tog-sw.yr .tog-knob{transform:translateX(22px)}
+.sv-badge{background:rgba(255,107,53,.2);border:1px solid rgba(255,107,53,.5);border-radius:50px;padding:3px 9px;font-size:.7rem;font-weight:700;color:#FF9A5C}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1}
+.plan{background:rgba(255,255,255,.06);backdrop-filter:blur(20px);border:2px solid rgba(255,255,255,.12);border-radius:22px;padding:32px 28px;display:flex;flex-direction:column;transition:all .3s ease}
 .plan:hover{border-color:rgba(255,255,255,.3);transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.3)}
 .plan.pop{background:rgba(255,255,255,.12);border-color:var(--or);transform:scale(1.03);box-shadow:0 32px 80px rgba(255,107,53,.2)}
 .plan.pop:hover{transform:scale(1.03) translateY(-4px)}
-.plan-brow{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;min-height:28px}
-.pop-tag{background:#FFC107;color:#1A1030;font-size:.72rem;font-weight:800;padding:4px 12px;border-radius:50px;letter-spacing:.05em}
-.plan-name{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
-.plan-pw{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
-.plan-cur{font-size:1.3rem;font-weight:700;color:var(--wh);margin-bottom:6px}
-.plan-amt{font-size:3.2rem;font-weight:900;color:var(--wh);line-height:1;font-variant-numeric:tabular-nums;display:inline-block;min-width:3ch}
+.plan-brow{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;min-height:26px}
+.pop-tag{background:#FFC107;color:#1A1030;font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:50px}
+.plan-name{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.plan-pw{display:flex;align-items:flex-end;gap:3px;margin-bottom:4px}
+.plan-cur{font-size:1.2rem;font-weight:700;color:var(--wh);margin-bottom:5px}
+.plan-amt{font-size:3rem;font-weight:900;color:var(--wh);line-height:1;font-variant-numeric:tabular-nums;display:inline-block;min-width:2ch}
 .plan-amt.flip{animation:pflip .38s ease}
 @keyframes pflip{0%{opacity:0;transform:translateY(-10px)}100%{opacity:1;transform:translateY(0)}}
-.plan-per{font-size:.85rem;color:rgba(255,255,255,.45);margin-bottom:6px}
-.plan-note{font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:28px;min-height:18px}
-.plan-div{height:1px;background:rgba(255,255,255,.1);margin-bottom:28px}
-.plan-feats{display:flex;flex-direction:column;gap:12px;flex:1;margin-bottom:32px}
-.pf{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:rgba(255,255,255,.75)}
+.plan-per{font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:5px}
+.plan-note{font-size:.72rem;color:rgba(255,255,255,.3);margin-bottom:24px;min-height:16px}
+.plan-div{height:1px;background:rgba(255,255,255,.1);margin-bottom:24px}
+.plan-feats{display:flex;flex-direction:column;gap:11px;flex:1;margin-bottom:28px}
+.pf{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;color:rgba(255,255,255,.75)}
 .pf-chk{flex-shrink:0;margin-top:2px}
 .pf.dim{color:rgba(255,255,255,.3)}
-.pcta{display:block;width:100%;padding:14px;border-radius:14px;text-align:center;font-weight:700;font-size:.95rem;cursor:pointer;border:none;transition:all .25s;text-decoration:none}
-.pcta-gh{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2)}
-.pcta-gh:hover{background:rgba(255,255,255,.15);color:var(--wh)}
-.pcta-so{background:var(--wh);color:var(--td);font-weight:800}
-.pcta-so:hover{background:var(--ll);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
-.pcta-or{background:var(--or);color:var(--wh);font-weight:800}
-.pcta-or:hover{background:var(--oh);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.4)}
-.pr-trust{display:flex;align-items:center;justify-content:center;gap:36px;margin-top:48px;flex-wrap:wrap}
-.pt{display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.45)}
-.ben-wrap{margin-top:18px;display:inline-flex;gap:12px}
+.pcta{display:block;width:100%;padding:13px;border-radius:12px;text-align:center;font-weight:700;font-size:.92rem;cursor:pointer;border:none;transition:all .25s;text-decoration:none}
+.pcta-gh{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2)}.pcta-gh:hover{background:rgba(255,255,255,.15);color:var(--wh)}
+.pcta-so{background:var(--wh);color:var(--td);font-weight:800}.pcta-so:hover{background:var(--ll);transform:translateY(-2px)}
+.pcta-or{background:var(--or);color:var(--wh);font-weight:800}.pcta-or:hover{background:var(--oh);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.4)}
+.pr-trust{display:flex;align-items:center;justify-content:center;gap:32px;margin-top:44px;flex-wrap:wrap}
+.pt{font-size:.8rem;color:rgba(255,255,255,.4)}
+.ben-wrap{display:inline-flex;gap:12px;margin-bottom:24px}
 
-/* ===== REVIEWS (remplace témoignages) ===== */
+/* REVIEWS */
 .reviews{padding:100px 0;background:var(--ow)}
-.reviews-head{text-align:center;margin-bottom:56px}
+.reviews-head{text-align:center;margin-bottom:52px}
 .reviews-head h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--dp);margin-bottom:12px}
 .reviews-head p{font-size:1rem;color:var(--tl);max-width:480px;margin:0 auto;line-height:1.7}
 .reviews-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.review-form-box{background:var(--wh);border:2px solid var(--bd);border-radius:24px;padding:36px}
-.review-form-box h3{font-size:1.1rem;font-weight:700;color:var(--dp);margin-bottom:24px}
-.rf-field{margin-bottom:16px}
-.rf-field label{display:block;font-size:.78rem;font-weight:600;color:var(--tl);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.rf-field input,.rf-field textarea,.rf-field select{width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:10px;font-family:inherit;font-size:.9rem;color:var(--td);transition:border-color .2s;outline:none;background:var(--wh)}
+.review-form-box{background:var(--wh);border:2px solid var(--bd);border-radius:24px;padding:32px}
+.review-form-box h3{font-size:1.1rem;font-weight:700;color:var(--dp);margin-bottom:22px}
+.rf-field{margin-bottom:14px}
+.rf-field label{display:block;font-size:.75rem;font-weight:600;color:var(--tl);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.rf-field input,.rf-field textarea,.rf-field select{width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:10px;font-family:inherit;font-size:.88rem;color:var(--td);transition:border-color .2s;outline:none;background:var(--wh)}
 .rf-field input:focus,.rf-field textarea:focus,.rf-field select:focus{border-color:var(--mp)}
-.rf-field textarea{min-height:80px;resize:vertical}
-.rf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.star-input{display:flex;gap:6px;margin-top:4px}
-.star-btn{font-size:1.8rem;cursor:pointer;color:#ddd;transition:color .15s;background:none;border:none;padding:0;line-height:1}
+.rf-field textarea{min-height:75px;resize:vertical}
+.rf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.star-input{display:flex;gap:5px;margin-top:4px}
+.star-btn{font-size:1.7rem;cursor:pointer;color:#ddd;transition:color .15s;background:none;border:none;padding:0;line-height:1}
 .star-btn.act{color:#FFC107}
-.rv-submit{width:100%;padding:13px;background:var(--mp);color:var(--wh);border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .25s;margin-top:8px}
+.rv-submit{width:100%;padding:12px;background:var(--mp);color:var(--wh);border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;transition:all .25s;margin-top:6px}
 .rv-submit:hover{background:var(--dp);transform:translateY(-1px)}
-.rv-success{background:var(--ll);border:1.5px solid var(--lm);border-radius:12px;padding:14px;text-align:center;color:var(--mp);font-weight:600;font-size:.9rem;display:none;margin-top:12px}
-.review-list-box h3{font-size:1.1rem;font-weight:700;color:var(--dp);margin-bottom:20px}
-.review-card{background:var(--wh);border:1.5px solid var(--bd);border-radius:16px;padding:22px;margin-bottom:14px;transition:all .25s}
+.rv-success{background:var(--ll);border:1.5px solid var(--lm);border-radius:10px;padding:12px;text-align:center;color:var(--mp);font-weight:600;font-size:.88rem;display:none;margin-top:10px}
+.review-scroll-box{overflow:hidden;height:480px;position:relative}
+.review-scroll-box::before,.review-scroll-box::after{content:'';position:absolute;left:0;right:0;height:60px;z-index:2;pointer-events:none}
+.review-scroll-box::before{top:0;background:linear-gradient(to bottom,var(--ow),transparent)}
+.review-scroll-box::after{bottom:0;background:linear-gradient(to top,var(--ow),transparent)}
+.review-scroll-box h3{font-size:1.1rem;font-weight:700;color:var(--dp);margin-bottom:16px}
+.rv-track{display:flex;flex-direction:column;gap:14px;position:absolute;width:100%;padding-top:40px}
+.review-card{background:var(--wh);border:1.5px solid var(--bd);border-radius:16px;padding:20px;transition:all .25s;flex-shrink:0}
 .review-card:hover{border-color:var(--lm);box-shadow:0 4px 20px rgba(59,31,107,.08)}
-.rv-stars{color:#FFC107;font-size:1rem;margin-bottom:10px}
-.rv-text{font-size:.9rem;color:var(--tm);line-height:1.7;font-style:italic;margin-bottom:14px}
-.rv-auth{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.rv-auth strong{font-size:.88rem;color:var(--td)}
-.rv-profile{background:var(--ll);color:var(--mp);border-radius:50px;padding:3px 10px;font-size:.72rem;font-weight:600}
-.rv-date{font-size:.75rem;color:var(--tl)}
-.rv-empty{text-align:center;color:var(--tl);font-size:.9rem;padding:32px;background:var(--wh);border-radius:16px;border:2px dashed var(--bd)}
+.rv-stars{color:#FFC107;font-size:.95rem;margin-bottom:8px}
+.rv-text{font-size:.88rem;color:var(--tm);line-height:1.7;font-style:italic;margin-bottom:12px}
+.rv-auth{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rv-auth strong{font-size:.85rem;color:var(--td)}
+.rv-profile{background:var(--ll);color:var(--mp);border-radius:50px;padding:2px 9px;font-size:.7rem;font-weight:600}
+.rv-date{font-size:.72rem;color:var(--tl)}
+.rv-empty{text-align:center;color:var(--tl);font-size:.88rem;padding:32px;background:var(--wh);border-radius:16px;border:2px dashed var(--bd)}
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
 .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;margin-bottom:64px}
-.ft-brand .logo{margin-bottom:16px}
 .ft-brand .logo-text{color:var(--wh)}
 .ft-brand>p{font-size:.88rem;line-height:1.7;color:rgba(255,255,255,.55);max-width:280px}
 .ft-social{display:flex;gap:10px;margin-top:20px}
 .soc{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;text-decoration:none}
 .soc:hover{background:var(--mp);border-color:var(--mp);color:var(--wh)}
-.ft-col h4{font-size:.88rem;font-weight:700;color:var(--wh);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px}
-.ft-col ul{display:flex;flex-direction:column;gap:12px}
-.ft-col ul a{font-size:.88rem;color:rgba(255,255,255,.55);transition:color .2s}
+.ft-col h4{font-size:.85rem;font-weight:700;color:var(--wh);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
+.ft-col ul{display:flex;flex-direction:column;gap:11px}
+.ft-col ul a{font-size:.85rem;color:rgba(255,255,255,.5);transition:color .2s}
 .ft-col ul a:hover{color:var(--lm)}
-.ft-contacts{display:flex;flex-direction:column;gap:14px}
+.ft-contacts{display:flex;flex-direction:column;gap:12px}
 .fci{display:flex;align-items:flex-start;gap:12px}
-.fci-ico{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;margin-top:1px}
-.fci strong{display:block;font-size:.8rem;font-weight:600;color:var(--wh)}
-.fci span{font-size:.82rem;color:rgba(255,255,255,.5)}
-.ft-bot{border-top:1px solid rgba(255,255,255,.08);padding-top:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.ft-bot p{font-size:.82rem;color:rgba(255,255,255,.35)}
-.ft-links{display:flex;gap:24px}
-.ft-links a{font-size:.82rem;color:rgba(255,255,255,.35);transition:color .2s}
+.fci-ico{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0;margin-top:1px}
+.fci strong{display:block;font-size:.78rem;font-weight:600;color:var(--wh)}
+.fci span{font-size:.78rem;color:rgba(255,255,255,.45)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.ft-bot p{font-size:.8rem;color:rgba(255,255,255,.3)}
+.ft-links{display:flex;gap:20px}
+.ft-links a{font-size:.8rem;color:rgba(255,255,255,.3);transition:color .2s}
 .ft-links a:hover{color:rgba(255,255,255,.7)}
-.stop{position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:14px;background:var(--mp);color:var(--wh);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(90,47,163,.35);opacity:0;transform:translateY(16px);transition:all .3s;z-index:200}
+.stop{position:fixed;bottom:28px;right:20px;width:44px;height:44px;border-radius:12px;background:var(--mp);color:var(--wh);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(90,47,163,.35);opacity:0;transform:translateY(16px);transition:all .3s;z-index:200}
 .stop.on{opacity:1;transform:translateY(0)}
 .stop:hover{background:var(--dp);transform:translateY(-2px)}
 
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 @media(max-width:1024px){
-  .intro-grid,.hero-grid,.part-hero-grid,.b2c-grid,.zodiac-grid{grid-template-columns:1fr;gap:48px}
-  .mq-stage{height:400px}
-  .plans{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+  .intro-grid,.hero-grid,.b2c-grid,.zodiac-grid{grid-template-columns:1fr;gap:48px}
+  .mq-stage{height:360px}
+  .plans{grid-template-columns:1fr;max-width:380px;margin:0 auto}
   .plan.pop{transform:none}.plan.pop:hover{transform:translateY(-4px)}
   .ft-grid{grid-template-columns:1fr 1fr}
   .trust-in{flex-direction:column;text-align:center}
@@ -342,62 +336,62 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
 @media(max-width:768px){
   .nav-links,.nav-login{display:none}
   .hburg{display:flex}
-  .hero-stats,.intro-ctas{flex-direction:column;gap:16px}
-  .ft-grid{grid-template-columns:1fr;gap:32px}
-  .trust-nums{gap:24px}
-  .c1,.c2,.c3,.c4{display:none}
-  .intro-grid{padding:48px 0}
-  .mq-stage{height:280px}
+  .hero-stats,.intro-ctas{flex-direction:column;gap:14px}
+  .ft-grid{grid-template-columns:1fr;gap:28px}
+  .trust-nums{gap:20px}
+  .c3{display:none}
+  .intro-grid{padding:40px 0}
+  .mq-stage{height:300px}
   .orbit-b{display:none}
-  .intro-h1{font-size:clamp(1.9rem,8vw,2.8rem)}
-  .part-hero-grid{padding:60px 0}
+  .prof-frame{width:220px;height:300px}
   .rf-row{grid-template-columns:1fr}
-  .clark-wrap{right:12px;bottom:80px}
-  .clark-modal{right:12px;width:280px}
+  .clark-wrap{right:12px;bottom:140px}
+  .clark-modal{right:12px;width:280px;bottom:200px}
 }
 </style>
 </head>
 <body>
 
-<!-- CLARK SPIDER -->
+<!-- CLARK — Mascotte professionnelle -->
 <div class="clark-wrap" id="clark-wrap">
-  <div class="clark-thread" id="clark-thread"></div>
-  <div class="clark-body" id="clark-btn" title="Clark - Guide MySam">
-    <svg viewBox="0 0 80 80" width="58" height="58" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="40" cy="58" rx="18" ry="19" fill="#5A2FA3"/>
-      <circle cx="40" cy="33" r="16" fill="#7B4FCF"/>
-      <circle cx="33" cy="29" r="6" fill="white"/>
-      <circle cx="47" cy="29" r="6" fill="white"/>
-      <circle cx="34" cy="29" r="3.5" fill="#1A1030"/>
-      <circle cx="48" cy="29" r="3.5" fill="#1A1030"/>
-      <circle cx="35" cy="27.5" r="1.2" fill="white"/>
-      <circle cx="49" cy="27.5" r="1.2" fill="white"/>
-      <circle cx="29" cy="37" r="4" fill="#FF6B35" opacity=".35"/>
-      <circle cx="51" cy="37" r="4" fill="#FF6B35" opacity=".35"/>
-      <path d="M33 40 Q40 46 47 40" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M24 29 Q12 22 5 14" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M24 36 Q10 33 3 30" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M25 43 Q13 46 7 54" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M27 50 Q17 56 13 66" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M56 29 Q68 22 75 14" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M56 36 Q70 33 77 30" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M55 43 Q67 46 73 54" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M53 50 Q63 56 67 66" stroke="#3B1F6B" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <text x="40" y="63" text-anchor="middle" font-size="11" font-weight="800" fill="white" font-family="Inter,sans-serif">M</text>
+  <div class="clark-thread"></div>
+  <div class="clark-icon" id="clark-btn">
+    <svg viewBox="0 0 40 40" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+      <!-- Corps principal -->
+      <circle cx="20" cy="20" r="14" fill="rgba(255,255,255,.15)"/>
+      <!-- Yeux -->
+      <circle cx="15" cy="17" r="3.5" fill="white" opacity=".9"/>
+      <circle cx="25" cy="17" r="3.5" fill="white" opacity=".9"/>
+      <circle cx="16" cy="17" r="2" fill="#1A1030"/>
+      <circle cx="26" cy="17" r="2" fill="#1A1030"/>
+      <circle cx="16.5" cy="16" r=".8" fill="white"/>
+      <circle cx="26.5" cy="16" r=".8" fill="white"/>
+      <!-- Sourire discret -->
+      <path d="M15 24 Q20 28 25 24" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      <!-- Pattes — fines et élégantes -->
+      <line x1="6" y1="13" x2="1" y2="8" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="6" y1="20" x2="0" y2="20" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="7" y1="27" x2="2" y2="33" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="34" y1="13" x2="39" y2="8" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="34" y1="20" x2="40" y2="20" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="33" y1="27" x2="38" y2="33" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/>
     </svg>
   </div>
-  <div class="clark-tag">Clark</div>
+  <div class="clark-badge">Clark</div>
 </div>
 
-<!-- CLARK CHATBOT MODAL -->
+<!-- CLARK MODAL — Chatbot IA -->
 <div class="clark-modal" id="clark-modal">
   <div class="clark-mhead">
-    <svg width="28" height="28" viewBox="0 0 80 80"><circle cx="40" cy="33" r="16" fill="rgba(255,255,255,.3)"/><ellipse cx="40" cy="58" rx="18" ry="19" fill="rgba(255,255,255,.2)"/></svg>
-    <h3>Clark — Guide MySam</h3>
+    <div class="clark-mhead-ico">🕷️</div>
+    <div>
+      <h3>Clark</h3>
+      <p><span class="clark-online"></span>Guide MySam — en ligne</p>
+    </div>
     <button class="clark-mclose" id="clark-close">&#10005;</button>
   </div>
   <div class="clark-msgs" id="clark-msgs"></div>
-  <div class="clark-opts" id="clark-opts"></div>
+  <div id="clark-opts-zone"></div>
 </div>
 
 <!-- NAVBAR -->
@@ -406,10 +400,7 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
     <div class="nav-in">
       <a href="#home" class="logo">
         <div class="logo-mark"><img src="assets/Logo MySam.png" alt="MySam" class="logo-img"/></div>
-        <div>
-          <span class="logo-text">MySam</span>
-          <span class="logo-sub">Conseil &amp; Service</span>
-        </div>
+        <div><span class="logo-text">MySam</span><span class="logo-sub">Conseil &amp; Service</span></div>
       </a>
       <ul class="nav-links">
         <li><a href="#home">Accueil</a></li>
@@ -418,9 +409,6 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
         <li><a href="contact.html">Contactez-nous</a></li>
       </ul>
       <div class="nav-acts">
-        <button class="nav-srch" aria-label="Rechercher">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </button>
         <a href="connexion.html" class="nav-login">Se connecter</a>
         <a href="contact.html" class="btn btn-or">Contactez-nous</a>
       </div>
@@ -437,6 +425,7 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
   <div class="container">
     <div class="intro-grid">
       <div class="fu">
+        <div class="intro-launch">&#127775; Lanc&eacute; en 2025</div>
         <div class="intro-eye"><span class="eye-pulse"></span>MySam &mdash; Conseil &amp; Service</div>
         <h1 class="intro-h1">Approche&nbsp;Personnalis&eacute;e.<br/>Solutions&nbsp;Concr&egrave;tes.</h1>
         <p class="intro-sub">L&rsquo;expertise humaine au service de vos projets.<br/>Accompagnement sur mesure pour entreprises, particuliers et publics en r&eacute;insertion.</p>
@@ -450,54 +439,18 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
           <div class="intro-badge"><span>Programme Zodiac</span></div>
         </div>
       </div>
+      <!-- PHOTO PRO à la place du mannequin -->
       <div class="mq-stage fu d2">
         <div class="mq-glow"></div>
         <div class="orbit orbit-a"><div class="orbit-dot"></div></div>
         <div class="orbit orbit-b"><div class="orbit-dot"></div></div>
-        <div id="mq-wrap">
-          <svg viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg" aria-label="Mannequin MySam">
-            <defs>
-              <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A78BFA;stop-opacity:.9"/><stop offset="100%" style="stop-color:#5A2FA3;stop-opacity:.7"/></linearGradient>
-              <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C4B5FD;stop-opacity:1"/><stop offset="100%" style="stop-color:#7C3AED;stop-opacity:.85"/></linearGradient>
-              <linearGradient id="bg3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#6D28D9;stop-opacity:.8"/><stop offset="100%" style="stop-color:#2E1065;stop-opacity:.6"/></linearGradient>
-              <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              <filter id="iglow"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <ellipse cx="100" cy="335" rx="40" ry="6" fill="rgba(90,47,163,.3)" filter="url(#glow)"/>
-            <rect x="78" y="220" width="18" height="80" rx="9" fill="url(#bg3)" filter="url(#iglow)"/>
-            <ellipse cx="87" cy="302" rx="12" ry="6" fill="#4C1D95" opacity=".8"/>
-            <rect x="104" y="220" width="18" height="80" rx="9" fill="url(#bg3)" filter="url(#iglow)"/>
-            <ellipse cx="113" cy="302" rx="12" ry="6" fill="#4C1D95" opacity=".8"/>
-            <g id="torso">
-              <path d="M78 220 Q100 228 122 220 L126 190 Q100 200 74 190 Z" fill="url(#bg1)" opacity=".9"/>
-              <rect x="72" y="140" width="56" height="58" rx="10" fill="url(#bg1)" filter="url(#iglow)"/>
-              <ellipse cx="100" cy="158" rx="18" ry="12" fill="rgba(196,181,253,.2)"/>
-              <rect x="55" y="142" width="16" height="56" rx="8" fill="url(#bg1)" filter="url(#iglow)" transform="rotate(6 63 170)"/>
-              <ellipse cx="60" cy="200" rx="9" ry="7" fill="#6D28D9" opacity=".85" transform="rotate(6 60 200)"/>
-              <g id="arm-r">
-                <rect x="129" y="140" width="16" height="56" rx="8" fill="url(#bg1)" filter="url(#iglow)" transform="rotate(-8 137 168)"/>
-                <ellipse cx="140" cy="196" rx="9" ry="7" fill="#6D28D9" opacity=".85" transform="rotate(-8 140 196)"/>
-              </g>
-              <line x1="72" y1="148" x2="128" y2="148" stroke="rgba(196,181,253,.35)" stroke-width="1.5"/>
-            </g>
-            <rect x="93" y="114" width="14" height="28" rx="7" fill="url(#bg2)" filter="url(#iglow)"/>
-            <g id="head">
-              <ellipse cx="100" cy="96" rx="28" ry="32" fill="url(#bg2)" filter="url(#glow)"/>
-              <ellipse cx="100" cy="88" rx="14" ry="16" fill="rgba(255,255,255,.12)"/>
-              <ellipse cx="91" cy="88" rx="4.5" ry="5.5" fill="rgba(255,255,255,.9)"/>
-              <ellipse cx="109" cy="88" rx="4.5" ry="5.5" fill="rgba(255,255,255,.9)"/>
-              <circle cx="92" cy="88" r="2.5" fill="#1A0040"/>
-              <circle cx="110" cy="88" r="2.5" fill="#1A0040"/>
-              <circle cx="93" cy="87" r="1" fill="rgba(255,255,255,.8)"/>
-              <circle cx="111" cy="87" r="1" fill="rgba(255,255,255,.8)"/>
-              <path d="M92 103 Q100 110 108 103" stroke="rgba(255,255,255,.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
-            </g>
-          </svg>
+        <div class="prof-frame">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80" alt="Accompagnement professionnel MySam" />
+          <div class="prof-frame-overlay"></div>
         </div>
         <div class="chip c1"><span class="chip-ico">🏢</span><div class="chip-txt"><strong>RH &amp; Conseil</strong><span>Solutions Entreprises</span></div></div>
         <div class="chip c2"><span class="chip-ico">⭐</span><div class="chip-txt"><strong>98% satisfaction</strong><span>Clients accompagn&eacute;s</span></div></div>
-        <div class="chip c3"><span class="chip-ico">🌟</span><div class="chip-txt"><strong>Programme Zodiac</strong><span>R&eacute;insertion pro</span></div></div>
-        <div class="chip c4"><span class="chip-ico">👥</span><div class="chip-txt"><strong>50+ accompagn&eacute;s</strong><span>Depuis notre lancement</span></div></div>
+        <div class="chip c3"><span class="chip-ico">🚀</span><div class="chip-txt"><strong>Lanc&eacute; en 2025</strong><span>MySam Conseil &amp; Service</span></div></div>
       </div>
     </div>
   </div>
@@ -522,13 +475,10 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
       <div class="hero-card fu d2">
         <div class="hero-card-ico">🏢</div>
         <h3>Conseil &amp; Accompagnement RH</h3>
-        <p>Vous cherchez &agrave; structurer votre strat&eacute;gie RH, renforcer votre communication ou accompagner vos &eacute;quipes dans la dur&eacute;e&nbsp;? MySam intervient sur des enjeux vari&eacute;s.</p>
+        <p>Vous cherchez &agrave; structurer votre strat&eacute;gie RH, renforcer votre communication ou accompagner vos &eacute;quipes&nbsp;? MySam intervient sur des enjeux vari&eacute;s.</p>
         <div class="card-tags">
-          <span class="tag">Strat&eacute;gie RH</span>
-          <span class="tag">Communication interne</span>
-          <span class="tag">Formation</span>
-          <span class="tag">Conduite du changement</span>
-          <span class="tag">Team Building</span>
+          <span class="tag">Strat&eacute;gie RH</span><span class="tag">Communication interne</span>
+          <span class="tag">Formation</span><span class="tag">Team Building</span>
         </div>
         <a href="contact.html" class="btn btn-or">Nous contacter <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
       </div>
@@ -536,39 +486,27 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
   </div>
 </section>
 
-<!-- ACCOMPAGNEMENT PARTICULIERS HERO -->
-<section class="part-hero" id="particuliers">
-  <div class="part-hero-bg"></div>
+<!-- B2C — ACCOMPAGNEMENT PARTICULIERS (layout original blanc) -->
+<section class="b2c" id="particuliers">
   <div class="container">
-    <div class="part-hero-grid">
-      <div class="fu">
-        <div class="hero-brow" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9)"><span class="hero-brow-dot"></span>Accompagnement Particuliers</div>
-        <h2 class="hero-h2">Un soutien professionnel<br/><em>taill&eacute; sur mesure</em><br/>pour vous.</h2>
-        <p class="hero-p">Vous avez besoin d&rsquo;un regard professionnel pour avancer dans votre parcours, pr&eacute;parer une candidature ou structurer un projet. MySam vous accompagne de fa&ccedil;on concr&egrave;te.</p>
-        <a href="accompagnement.html" class="btn btn-or">&Ecirc;tre accompagn&eacute; <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-        <div class="hero-stats" style="margin-top:36px">
-          <div class="stat"><div class="stat-n">3</div><div class="stat-l">Services d&eacute;di&eacute;s</div></div>
-          <div class="stat"><div class="stat-n">IA</div><div class="stat-l">Outils inclus</div></div>
-          <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Personnalis&eacute;</div></div>
+    <div class="b2c-grid">
+      <div class="b2c-img fu">
+        <img src="https://images.unsplash.com/photo-1573497161161-c3e73707e25c?w=900&q=80" alt="Session de coaching individuel" />
+        <div class="b2c-badge">
+          <div class="b2c-badge-ico">🌟</div>
+          <div><strong>Suivi personnalis&eacute;</strong><span>&Agrave; chaque &eacute;tape de votre parcours</span></div>
         </div>
       </div>
-      <div class="part-hero-card fu d2">
-        <h3>Choisissez votre accompagnement</h3>
-        <div class="part-services">
-          <a href="accompagnement.html" class="part-svc">
-            <span class="part-svc-ico">📄</span>
-            <div><strong>G&eacute;n&eacute;rer mon CV</strong><span>CV optimis&eacute; par l'IA en 2 minutes</span></div>
-          </a>
-          <a href="accompagnement.html" class="part-svc">
-            <span class="part-svc-ico">🎯</span>
-            <div><strong>Bilan de comp&eacute;tences</strong><span>Clarifiez votre orientation professionnelle</span></div>
-          </a>
-          <a href="accompagnement.html" class="part-svc">
-            <span class="part-svc-ico">💼</span>
-            <div><strong>Pr&eacute;paration candidatures</strong><span>CV, lettre, entretien, strat&eacute;gie</span></div>
-          </a>
+      <div class="fu d1">
+        <div class="sec-label"><span class="sec-label-line"></span>Accompagnement Particuliers</div>
+        <h2 class="b2c-cnt" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;color:var(--dp);line-height:1.2;margin-bottom:20px">Un soutien <span style="color:var(--sp)">professionnel</span> taill&eacute; sur mesure pour vous.</h2>
+        <p style="font-size:1rem;line-height:1.75;color:var(--tm);margin-bottom:28px">Vous avez besoin d&rsquo;un regard professionnel pour avancer dans votre parcours, pr&eacute;parer une candidature ou structurer un projet. MySam vous accompagne de fa&ccedil;on concr&egrave;te, avec des outils et des conseils adapt&eacute;s &agrave; votre situation.</p>
+        <div class="feat-list">
+          <div class="feat"><div class="feat-ico fi-pu">🎯</div><div><strong>Bilan de comp&eacute;tences</strong><span>Clarifiez votre orientation professionnelle et vos atouts cl&eacute;s</span></div></div>
+          <div class="feat"><div class="feat-ico fi-or">📝</div><div><strong>Pr&eacute;paration aux candidatures</strong><span>CV, lettres de motivation, entra&icirc;nement aux entretiens</span></div></div>
+          <div class="feat"><div class="feat-ico fi-gr">🚀</div><div><strong>G&eacute;n&eacute;rateur de CV IA</strong><span>CV optimis&eacute; par l'intelligence artificielle en 2 minutes</span></div></div>
         </div>
-        <a href="accompagnement.html" class="btn btn-or" style="width:100%;justify-content:center">Acc&eacute;der aux services <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="accompagnement.html" class="btn btn-pu">&Ecirc;tre accompagn&eacute; <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
       </div>
     </div>
   </div>
@@ -582,26 +520,27 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
         <div class="z-badge">Programme exclusif</div>
         <h2>Programme <span class="acc">Zodiac</span></h2>
         <p class="z-sub">Public tr&egrave;s &eacute;loign&eacute; de l&rsquo;emploi</p>
-        <p>Certaines situations n&eacute;cessitent un accompagnement sp&eacute;cifique pour faciliter l&rsquo;acc&egrave;s ou le retour &agrave; l&rsquo;emploi. MySam intervient pour la r&eacute;insertion professionnelle aupr&egrave;s des personnes tr&egrave;s &eacute;loign&eacute;es de l&rsquo;emploi.</p>
+        <p>Certaines situations n&eacute;cessitent un accompagnement sp&eacute;cifique. MySam intervient pour la r&eacute;insertion professionnelle aupr&egrave;s des personnes les plus &eacute;loign&eacute;es de l&rsquo;emploi, en partenariat avec les structures locales.</p>
         <div class="pillars">
           <div class="pill"><div class="pill-n">01</div><div><strong>&Eacute;valuation &amp; diagnostic individuel</strong><span>Comprendre la situation, les freins et les ressources de chaque personne</span></div></div>
-          <div class="pill"><div class="pill-n">02</div><div><strong>Ateliers collectifs de remobilisation</strong><span>Retrouver confiance en soi dans un cadre bienveillant et inclusif</span></div></div>
-          <div class="pill"><div class="pill-n">03</div><div><strong>Accompagnement vers l&rsquo;emploi</strong><span>Mise en relation avec les partenaires et suivi jusqu&rsquo;&agrave; l&rsquo;insertion</span></div></div>
+          <div class="pill"><div class="pill-n">02</div><div><strong>Ateliers collectifs de remobilisation</strong><span>Retrouver confiance en soi dans un cadre bienveillant</span></div></div>
+          <div class="pill"><div class="pill-n">03</div><div><strong>Accompagnement vers l&rsquo;emploi</strong><span>Mise en relation avec les partenaires jusqu&rsquo;&agrave; l&rsquo;insertion</span></div></div>
         </div>
-        <a href="contact.html" class="btn btn-or" style="margin-bottom:36px">En savoir plus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="contact.html" class="btn btn-or" style="margin-bottom:32px">En savoir plus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <!-- LOGOS PARTENAIRES -->
         <div class="z-ptns">
           <p class="z-ptns-lbl">Structures partenaires</p>
           <div class="ptns">
-            <div class="ptn">P&ocirc;le Emploi</div>
-            <div class="ptn">Mission Locale</div>
-            <div class="ptn">CCAS</div>
-            <div class="ptn">CAP Emploi</div>
-            <div class="ptn">SIAE</div>
+            <div class="ptn-logo"><div class="ptn-dot" style="background:#00A3E0"></div><span>France Travail</span></div>
+            <div class="ptn-logo"><div class="ptn-dot" style="background:#E2001A"></div><span>Mission Locale</span></div>
+            <div class="ptn-logo"><div class="ptn-dot" style="background:#00875A"></div><span>CCAS</span></div>
+            <div class="ptn-logo"><div class="ptn-dot" style="background:#F7A800"></div><span>CAP Emploi</span></div>
+            <div class="ptn-logo"><div class="ptn-dot" style="background:#6B3FA0"></div><span>SIAE</span></div>
           </div>
         </div>
       </div>
       <div class="z-img fu d2" style="position:relative">
-        <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=900&q=80" alt="Atelier collectif Programme Zodiac" />
+        <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=900&q=80" alt="Atelier Programme Zodiac" />
         <div class="z-ov"></div>
         <div class="z-quote">
           <blockquote>&ldquo;Chaque personne m&eacute;rite une chance concr&egrave;te de retrouver sa place dans le monde du travail.&rdquo;</blockquote>
@@ -621,10 +560,10 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
         <p>Des r&eacute;sultats mesurables, des histoires humaines qui durent.</p>
       </div>
       <div class="trust-nums">
-        <div class="tn"><div class="tn-n">50+</div><div class="tn-l">Personnes accompagn&eacute;es</div></div>
-        <div class="tn"><div class="tn-n">3</div><div class="tn-l">Programmes d&eacute;di&eacute;s</div></div>
-        <div class="tn"><div class="tn-n">10+</div><div class="tn-l">Partenaires actifs</div></div>
-        <div class="tn"><div class="tn-n">98%</div><div class="tn-l">Satisfaction client</div></div>
+        <div class="tn"><div class="tn-n">50+</div><div class="tn-l">Accompagn&eacute;s</div></div>
+        <div class="tn"><div class="tn-n">3</div><div class="tn-l">Programmes</div></div>
+        <div class="tn"><div class="tn-n">10+</div><div class="tn-l">Partenaires</div></div>
+        <div class="tn"><div class="tn-n">98%</div><div class="tn-l">Satisfaction</div></div>
       </div>
       <a href="rendezvous.html" class="btn btn-pu">Prendre rendez-vous</a>
     </div>
@@ -637,16 +576,16 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
     <div class="pr-head fu">
       <div class="pr-eye">Tarification transparente</div>
       <h2>Choisissez votre formule</h2>
-      <p>Des offres claires, sans surprise, adapt&eacute;es &agrave; chaque besoin.</p>
+      <p>Des offres accessibles, sans surprise, adapt&eacute;es &agrave; votre situation.</p>
       <div class="ben-wrap">
         <button class="btn btn-wh ben-btn act" data-profile="particulier">Particulier</button>
         <button class="btn btn-owh ben-btn" data-profile="entreprise">Entreprise</button>
       </div>
-      <div class="tog-wrap" style="margin-top:16px">
+      <div class="tog-wrap">
         <span class="tog-lbl act" id="tlm">Mensuel</span>
         <div class="tog-sw" id="tsw"><div class="tog-knob"></div></div>
         <span class="tog-lbl" id="tly">Annuel</span>
-        <span class="sv-badge">&minus;25&thinsp;%</span>
+        <span class="sv-badge">&minus;20&thinsp;%</span>
       </div>
     </div>
     <div class="plans fu d1">
@@ -657,41 +596,40 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
         <div class="plan-per">/ mois</div>
         <div class="plan-note" id="nf">&nbsp;</div>
         <div class="plan-div"></div>
-        <ul class="plan-feats">
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>1 session de diagnostic</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acc&egrave;s aux ressources en ligne</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Newsletter MySam</li>
-          <li class="pf dim"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Suivi personnalis&eacute;</li>
+        <ul class="plan-feats" id="ff">
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>1 session de diagnostic</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acc&egrave;s aux ressources</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Outil CV IA (1 g&eacute;n&eacute;ration)</li>
         </ul>
         <a href="connexion.html" class="pcta pcta-gh">Commencer gratuitement</a>
       </div>
       <div class="plan pop">
         <div class="plan-brow"><span class="pop-tag">Populaire</span></div>
-        <div class="plan-name">Starter</div>
-        <div class="plan-pw"><span class="plan-cur">&euro;</span><span class="plan-amt" id="ps">79</span></div>
+        <div class="plan-name">Essentiel</div>
+        <div class="plan-pw"><span class="plan-cur">&euro;</span><span class="plan-amt" id="ps">49</span></div>
         <div class="plan-per">/ mois</div>
         <div class="plan-note" id="ns">&nbsp;</div>
         <div class="plan-div"></div>
-        <ul class="plan-feats">
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>3 s&eacute;ances de coaching / mois</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Bilan de comp&eacute;tences initial</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Plan d&rsquo;action personnalis&eacute;</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Messagerie coach d&eacute;di&eacute;e</li>
+        <ul class="plan-feats" id="fs">
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>2 s&eacute;ances de coaching / mois</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Bilan de comp&eacute;tences initial</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>CV IA illimit&eacute;</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF9A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Messagerie coach d&eacute;di&eacute;e</li>
         </ul>
         <a href="rendezvous.html" class="pcta pcta-or">D&eacute;marrer maintenant</a>
       </div>
       <div class="plan">
         <div class="plan-brow"></div>
         <div class="plan-name">Pro</div>
-        <div class="plan-pw"><span class="plan-cur">&euro;</span><span class="plan-amt" id="pp">149</span></div>
+        <div class="plan-pw"><span class="plan-cur">&euro;</span><span class="plan-amt" id="pp">89</span></div>
         <div class="plan-per">/ mois</div>
         <div class="plan-note" id="np">&nbsp;</div>
         <div class="plan-div"></div>
-        <ul class="plan-feats">
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>S&eacute;ances illimit&eacute;es</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acc&egrave;s tous programmes MySam</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Rapport de progression mensuel</li>
-          <li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Support d&eacute;di&eacute; &amp; acc&egrave;s prioritaire</li>
+        <ul class="plan-feats" id="fp">
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>S&eacute;ances illimit&eacute;es</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acc&egrave;s tous programmes MySam</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Rapport de progression mensuel</li>
+          <li class="pf"><span class="pf-chk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Pr&eacute;paration enti&egrave;re candidatures</li>
         </ul>
         <a href="rendezvous.html" class="pcta pcta-so">D&eacute;marrer</a>
       </div>
@@ -711,17 +649,17 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
     <div class="reviews-head fu">
       <div class="sec-label"><span class="sec-label-line"></span>T&eacute;moignages</div>
       <h2>Ce que disent nos utilisateurs</h2>
-      <p>Des retours authentiques de personnes que MySam a accompagn&eacute;es. Partagez votre exp&eacute;rience !</p>
+      <p>Des retours authentiques. Partagez votre exp&eacute;rience avec MySam !</p>
     </div>
     <div class="reviews-layout fu d1">
       <div class="review-form-box">
-        <h3>Laisser un avis</h3>
+        <h3>Donner un commentaire</h3>
         <div class="rf-row">
           <div class="rf-field"><label>Pr&eacute;nom</label><input type="text" id="rv-prenom" placeholder="Marie" /></div>
-          <div class="rf-field"><label>Nom</label><input type="text" id="rv-nom" placeholder="Dupont" /></div>
+          <div class="rf-field"><label>Nom</label><input type="text" id="rv-nom" placeholder="D." /></div>
         </div>
         <div class="rf-field">
-          <label>Profil / Formation</label>
+          <label>Profil</label>
           <select id="rv-profil">
             <option value="">S&eacute;lectionner...</option>
             <option>Particulier en reconversion</option>
@@ -749,11 +687,13 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
           <textarea id="rv-comment" placeholder="Partagez votre exp&eacute;rience avec MySam..."></textarea>
         </div>
         <button class="rv-submit" id="rv-submit">Publier mon avis</button>
-        <div class="rv-success" id="rv-success">Merci pour votre t&eacute;moignage ! Il est maintenant visible.</div>
+        <div class="rv-success" id="rv-success">Merci pour votre t&eacute;moignage !</div>
       </div>
-      <div class="review-list-box">
-        <h3>Avis r&eacute;cents</h3>
-        <div id="reviews-list"></div>
+      <div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--dp);margin-bottom:16px">Avis r&eacute;cents</h3>
+        <div class="review-scroll-box">
+          <div class="rv-track" id="rv-track"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -764,11 +704,11 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
   <div class="container">
     <div class="ft-grid">
       <div class="ft-brand">
-        <a href="index.html#home" class="logo">
+        <a href="index.html" class="logo" style="margin-bottom:14px">
           <div class="logo-mark"><img src="assets/Logo MySam.png" class="logo-img" alt="MySam"/></div>
           <div><span class="logo-text">MySam</span><span class="logo-sub" style="color:rgba(255,255,255,.4)">Conseil &amp; Service</span></div>
         </a>
-        <p>MySam accompagne entreprises, particuliers et publics fragilis&eacute;s vers des solutions concr&egrave;tes, humaines et durables.</p>
+        <p>MySam accompagne entreprises, particuliers et publics fragilis&eacute;s vers des solutions concr&egrave;tes, humaines et durables. Lanc&eacute; en 2025.</p>
         <div class="ft-social">
           <a href="#" class="soc" aria-label="LinkedIn">in</a>
           <a href="#" class="soc" aria-label="Twitter">&#120143;</a>
@@ -779,12 +719,11 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
       <div class="ft-col">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="index.html#home">Accueil</a></li>
+          <li><a href="index.html">Accueil</a></li>
           <li><a href="index.html#home">Solutions Entreprises</a></li>
           <li><a href="accompagnement.html">Accompagnement Particuliers</a></li>
           <li><a href="index.html#zodiac">Programme Zodiac</a></li>
           <li><a href="actualites.html">Actualit&eacute;s</a></li>
-          <li><a href="rendezvous.html">Prendre rendez-vous</a></li>
         </ul>
       </div>
       <div class="ft-col">
@@ -792,15 +731,15 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
         <ul>
           <li><a href="actualites.html">Blog &amp; Conseils</a></li>
           <li><a href="index.html#avis">T&eacute;moignages</a></li>
-          <li><a href="contact.html">FAQ</a></li>
+          <li><a href="contact.html">FAQ &amp; Contact</a></li>
           <li><a href="connexion.html">Espace client</a></li>
-          <li><a href="index.html#zodiac">Nos partenaires</a></li>
+          <li><a href="rendezvous.html">Prendre rendez-vous</a></li>
         </ul>
       </div>
       <div class="ft-col">
         <h4>Nous contacter</h4>
         <div class="ft-contacts">
-          <div class="fci"><div class="fci-ico">&#128205;</div><div><strong>Adresse</strong><span>Paris, France &mdash; pr&eacute;sentiel &amp; distanciel</span></div></div>
+          <div class="fci"><div class="fci-ico">&#128205;</div><div><strong>Adresse</strong><span>France &mdash; pr&eacute;sentiel &amp; distanciel</span></div></div>
           <div class="fci"><div class="fci-ico">&#9993;</div><div><strong>Email</strong><span>mysam.officiel@gmail.com</span></div></div>
           <div class="fci"><div class="fci-ico">&#128222;</div><div><strong>T&eacute;l&eacute;phone</strong><span>06 69 25 53 04</span></div></div>
           <div class="fci"><div class="fci-ico">&#128336;</div><div><strong>Disponibilit&eacute;</strong><span>Lun&ndash;Ven, 9h&ndash;18h</span></div></div>
@@ -825,152 +764,130 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
 <script>
 "use strict";
 
-/* NAVBAR */
+// ===== NAVBAR =====
 (function(){
-  var nb=document.getElementById('navbar');
-  var st=document.getElementById('stop');
-  window.addEventListener('scroll',function(){
-    var y=window.scrollY;
-    nb.classList.toggle('s',y>20);
-    st.classList.toggle('on',y>400);
-  });
+  var nb=document.getElementById('navbar'),st=document.getElementById('stop');
+  window.addEventListener('scroll',function(){var y=window.scrollY;nb.classList.toggle('s',y>20);st.classList.toggle('on',y>400);});
   st.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
 })();
 
-/* SCROLL REVEAL */
+// ===== SCROLL REVEAL =====
 (function(){
   var els=document.querySelectorAll('.fu');
   if(!window.IntersectionObserver){els.forEach(function(e){e.classList.add('on');});return;}
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});
-  },{threshold:0.10});
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:0.10});
   els.forEach(function(e){obs.observe(e);});
 })();
 
-/* PARTICLES */
+// ===== PARTICLES =====
 (function(){
-  var c=document.getElementById('ipts');
-  if(!c)return;
-  for(var i=0;i<60;i++){
-    var s=document.createElement('span');
-    var sz=Math.random()*3+1;
-    s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*4+2)+'s;animation-delay:'+(Math.random()*5)+'s;';
-    c.appendChild(s);
-  }
+  var c=document.getElementById('ipts');if(!c)return;
+  for(var i=0;i<60;i++){var s=document.createElement('span');var sz=Math.random()*3+1;s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*4+2)+'s;animation-delay:'+(Math.random()*5)+'s;';c.appendChild(s);}
 })();
 
-/* MANNEQUIN PARALLAX */
+// ===== PRICING =====
 (function(){
-  var stage=document.querySelector('.mq-stage');
-  var wrap=document.getElementById('mq-wrap');
-  if(!stage||!wrap)return;
-  var ticking=false;
-  document.addEventListener('mousemove',function(e){
-    if(ticking)return;
-    ticking=true;
-    requestAnimationFrame(function(){
-      var r=stage.getBoundingClientRect();
-      var dx=(e.clientX-(r.left+r.width/2))/r.width;
-      var dy=(e.clientY-(r.top+r.height/2))/r.height;
-      wrap.style.transform='perspective(800px) rotateY('+(dx*18)+'deg) rotateX('+(-dy*12)+'deg) translateZ(10px)';
-      ticking=false;
-    });
-  });
-  stage.addEventListener('mouseleave',function(){
-    wrap.style.transition='transform .6s ease';
-    wrap.style.transform='perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(0)';
-  });
-  stage.addEventListener('mouseenter',function(){
-    wrap.style.transition='transform .08s linear';
-  });
-})();
-
-/* PRICING */
-(function(){
-  var yearly=false;
-  var profile='particulier';
-  var tsw=document.getElementById('tsw');
-  var tlm=document.getElementById('tlm');
-  var tly=document.getElementById('tly');
+  var yearly=false,profile='particulier';
+  var tsw=document.getElementById('tsw'),tlm=document.getElementById('tlm'),tly=document.getElementById('tly');
   var benBtns=document.querySelectorAll('.ben-btn');
-  var amtEls={pf:document.getElementById('pf'),ps:document.getElementById('ps'),pp:document.getElementById('pp')};
-  var noteEls={pf:document.getElementById('nf'),ps:document.getElementById('ns'),pp:document.getElementById('np')};
-  var nameEls=document.querySelectorAll('.plan-name');
-  var featEls=document.querySelectorAll('.plan-feats');
+  var amts={f:document.getElementById('pf'),s:document.getElementById('ps'),p:document.getElementById('pp')};
+  var notes={f:document.getElementById('nf'),s:document.getElementById('ns'),p:document.getElementById('np')};
+  var names=document.querySelectorAll('.plan-name');
+  var feats={f:document.getElementById('ff'),s:document.getElementById('fs'),p:document.getElementById('fp')};
+
   var data={
     particulier:[
-      {name:'D&eacute;couverte',mo:0,yr:0,feats:['1 session de diagnostic','Acc&egrave;s aux ressources en ligne','Newsletter MySam']},
-      {name:'Starter',mo:79,yr:59,feats:['3 s&eacute;ances de coaching / mois','Bilan de comp&eacute;tences initial','Plan d\'action personnalis&eacute;']},
-      {name:'Pro',mo:149,yr:112,feats:['S&eacute;ances illimit&eacute;es','Acc&egrave;s tous programmes MySam','Rapport de progression mensuel']}
+      {name:'D\u00e9couverte',mo:0,yr:0,feats:['1 session de diagnostic','Acc\u00e8s aux ressources','Outil CV IA (1 g\u00e9n\u00e9ration)']},
+      {name:'Essentiel',mo:49,yr:39,feats:['2 s\u00e9ances coaching / mois','Bilan de comp\u00e9tences initial','CV IA illimit\u00e9','Messagerie coach d\u00e9di\u00e9e']},
+      {name:'Pro',mo:89,yr:71,feats:['S\u00e9ances illimit\u00e9es','Acc\u00e8s tous programmes','Rapport de progression','Pr\u00e9paration enti\u00e8re candidatures']}
     ],
     entreprise:[
-      {name:'Essentiel',mo:129,yr:99,feats:['Audit RH &amp; diagnostic','Plan d\'action op&eacute;rationnel','3 ateliers / trimestre']},
-      {name:'Business',mo:249,yr:199,feats:['Accompagnement d\'&eacute;quipe','Ateliers th&eacute;matiques','Support strat&eacute;gique continu']},
-      {name:'Sur-mesure',mo:599,yr:499,feats:['Accompagnement d&eacute;di&eacute;','Formation &amp; coaching dirigeants','Tableaux de bord &amp; reporting']}
+      {name:'Diagnostic',mo:0,yr:0,feats:['Audit RH initial gratuit','Recommandations pratiques','Devis d\u00e9taill\u00e9']},
+      {name:'Accompagnement',mo:199,yr:159,feats:['Accompagnement d\'\u00e9quipe','Ateliers th\u00e9matiques','Support strat\u00e9gique mensuel','Formation incluse']},
+      {name:'Sur-mesure',mo:399,yr:319,feats:['Accompagnement d\u00e9di\u00e9 full-time','Coaching dirigeants','Tableaux de bord &amp; reporting','Support prioritaire 7j/7']}
     ]
   };
+
   function lerp(a,b,t){return Math.round(a+(b-a)*t);}
   function easeOut(t){return 1-Math.pow(1-t,3);}
   function animNum(el,from,to){
-    if(from===to)return;
-    var start=null;var dur=380;
+    var start=null,dur=380;
     el.classList.remove('flip');void el.offsetWidth;el.classList.add('flip');
-    function step(ts){
-      if(!start)start=ts;
-      var p=Math.min((ts-start)/dur,1);
-      el.textContent=lerp(from,to,easeOut(p));
-      if(p<1)requestAnimationFrame(step);else{el.textContent=to;el.classList.remove('flip');}
-    }
+    function step(ts){if(!start)start=ts;var p=Math.min((ts-start)/dur,1);el.textContent=lerp(from,to,easeOut(p));if(p<1)requestAnimationFrame(step);else{el.textContent=to;el.classList.remove('flip');}}
     requestAnimationFrame(step);
   }
-  function renderProfile(p,yr){
+  function chk(col){return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="'+col+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';}
+
+  function render(p,yr){
     var set=data[p];
+    var cols=['f','s','p'];
+    var colors=['#A78BFA','#FF9A5C','#A78BFA'];
     set.forEach(function(pl,i){
-      if(nameEls[i])nameEls[i].innerHTML=pl.name;
-      var amtEl=(i===0?amtEls.pf:(i===1?amtEls.ps:amtEls.pp));
-      var noteEl=(i===0?noteEls.pf:(i===1?noteEls.ns:noteEls.np));
-      var from=parseInt(amtEl.textContent,10)||0;
-      var to=yr?pl.yr:pl.mo;
+      if(names[i])names[i].innerHTML=pl.name;
+      var amtEl=amts[cols[i]];var noteEl=notes[cols[i]];
+      var from=parseInt(amtEl.textContent,10)||0;var to=yr?pl.yr:pl.mo;
       animNum(amtEl,from,to);
-      if(yr&&pl.yr>0){noteEl.textContent='Factur\u00e9 '+(pl.yr*12)+'\u00A0\u20ac/an';}
-      else{noteEl.textContent='\u00A0';}
-      if(featEls[i]){featEls[i].innerHTML=pl.feats.map(function(f){return'<li class="pf"><span class="pf-chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>'+f+'</li>';}).join('');}
+      noteEl.textContent=(yr&&pl.yr>0)?'Factur\u00e9 '+(pl.yr*12)+'\u00a0\u20ac/an':'\u00a0';
+      if(feats[cols[i]]){feats[cols[i]].innerHTML=pl.feats.map(function(f){return'<li class="pf"><span class="pf-chk">'+chk(colors[i])+'</span>'+f+'</li>';}).join('');}
     });
-    tsw.classList.toggle('yr',yr);
-    tlm.classList.toggle('act',!yr);
-    tly.classList.toggle('act',yr);
+    tsw.classList.toggle('yr',yr);tlm.classList.toggle('act',!yr);tly.classList.toggle('act',yr);
   }
-  renderProfile(profile,yearly);
-  tsw.addEventListener('click',function(){yearly=!yearly;renderProfile(profile,yearly);});
-  tlm.addEventListener('click',function(){if(yearly){yearly=false;renderProfile(profile,false);}});
-  tly.addEventListener('click',function(){if(!yearly){yearly=true;renderProfile(profile,true);}});
-  benBtns.forEach(function(b){b.addEventListener('click',function(){benBtns.forEach(function(x){x.classList.remove('act');});this.classList.add('act');profile=this.getAttribute('data-profile')||'particulier';renderProfile(profile,yearly);});});
+
+  render(profile,yearly);
+  tsw.addEventListener('click',function(){yearly=!yearly;render(profile,yearly);});
+  tlm.addEventListener('click',function(){if(yearly){yearly=false;render(profile,false);}});
+  tly.addEventListener('click',function(){if(!yearly){yearly=true;render(profile,true);}});
+  benBtns.forEach(function(b){b.addEventListener('click',function(){benBtns.forEach(function(x){x.classList.remove('act');});this.classList.add('act');profile=this.dataset.profile||'particulier';render(profile,yearly);});});
 })();
 
-/* REVIEWS */
+// ===== REVIEWS + MARQUEE =====
 (function(){
-  var KEY='mysam_reviews_v1';
+  var KEY='mysam_reviews_v2';
   var rating=0;
+  var animFrame;
 
   function getReviews(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch(e){return[];}}
-  function saveReviews(rv){localStorage.setItem(KEY,JSON.stringify(rv.slice(0,30)));}
+  function saveReviews(rv){localStorage.setItem(KEY,JSON.stringify(rv.slice(0,40)));}
 
-  function render(){
-    var rv=getReviews();
-    var el=document.getElementById('reviews-list');
-    if(!el)return;
-    if(rv.length===0){
-      el.innerHTML='<div class="rv-empty">Soyez le premier \u00e0 laisser un avis !</div>';
-      return;
-    }
-    el.innerHTML=rv.map(function(r){
-      var stars='';
-      for(var i=1;i<=5;i++)stars+=i<=r.rating?'\u2605':'\u2606';
-      return '<div class="review-card"><div class="rv-stars">'+stars+'</div><p class="rv-text">\u201c'+r.comment+'\u201d</p><div class="rv-auth"><strong>'+r.prenom+' '+r.nom.charAt(0)+'.</strong><span class="rv-profile">'+r.profil+'</span><span class="rv-date">'+r.date+'</span></div></div>';
-    }).join('');
+  function cardHTML(r){
+    var stars='';for(var i=1;i<=5;i++)stars+=i<=r.rating?'\u2605':'\u2606';
+    return '<div class="review-card"><div class="rv-stars">'+stars+'</div><p class="rv-text">\u201c'+r.comment+'\u201d</p><div class="rv-auth"><strong>'+r.prenom+' '+r.nom+'</strong><span class="rv-profile">'+r.profil+'</span><span class="rv-date">'+r.date+'</span></div></div>';
   }
 
-  /* Stars */
+  var pos=0;
+  function startMarquee(){
+    var track=document.getElementById('rv-track');
+    if(!track||track.children.length===0)return;
+    if(animFrame)cancelAnimationFrame(animFrame);
+    // Double le contenu pour boucle infinie
+    var orig=track.innerHTML;
+    track.innerHTML=orig+orig;
+    var halfH=track.scrollHeight/2;
+    function animate(){
+      pos+=0.4;
+      if(pos>=halfH)pos=0;
+      track.style.transform='translateY(-'+pos+'px)';
+      animFrame=requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
+  function renderReviews(){
+    var rv=getReviews();
+    var track=document.getElementById('rv-track');
+    if(!track)return;
+    if(animFrame)cancelAnimationFrame(animFrame);
+    track.style.transform='translateY(0)';
+    pos=0;
+    if(rv.length===0){
+      track.innerHTML='<div class="rv-empty">Soyez le premier \u00e0 laisser un avis !</div>';
+      return;
+    }
+    track.innerHTML=rv.map(cardHTML).join('');
+    if(rv.length>2)setTimeout(startMarquee,500);
+  }
+
+  // Stars
   document.querySelectorAll('.star-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
       rating=parseInt(this.dataset.v);
@@ -990,90 +907,141 @@ footer{background:var(--td);color:rgba(255,255,255,.75);padding:80px 0 32px}
     var nom=(document.getElementById('rv-nom').value||'').trim();
     var profil=document.getElementById('rv-profil').value;
     var comment=(document.getElementById('rv-comment').value||'').trim();
-    if(!prenom||!nom||!rating||!comment||!profil){alert('Merci de remplir tous les champs et de donn\u00e9r une note.');return;}
+    if(!prenom||!rating||!comment||!profil){alert('Merci de remplir tous les champs et de donner une note.');return;}
     var rv=getReviews();
-    rv.unshift({prenom:prenom,nom:nom,profil:profil,rating:rating,comment:comment,date:new Date().toLocaleDateString('fr-FR')});
+    rv.unshift({prenom:prenom,nom:nom?nom.charAt(0)+'.':'',profil:profil,rating:rating,comment:comment,date:new Date().toLocaleDateString('fr-FR')});
     saveReviews(rv);
-    render();
+    renderReviews();
     document.getElementById('rv-prenom').value='';
     document.getElementById('rv-nom').value='';
     document.getElementById('rv-profil').value='';
     document.getElementById('rv-comment').value='';
     rating=0;
     document.querySelectorAll('.star-btn').forEach(function(b){b.classList.remove('act');b.style.color='';});
-    var s=document.getElementById('rv-success');
-    s.style.display='block';
+    var s=document.getElementById('rv-success');s.style.display='block';
     setTimeout(function(){s.style.display='none';},4000);
   });
 
-  render();
+  renderReviews();
 })();
 
-/* CLARK CHATBOT */
+// ===== CLARK CHATBOT IA =====
 (function(){
+  // ⚠️ Même URL que le CV tool — à configurer après Cloudflare
+  var WORKER_URL='https://TON-WORKER.workers.dev';
+  var useAI=(WORKER_URL.indexOf('TON-WORKER')===-1);
+
   var btn=document.getElementById('clark-btn');
   var modal=document.getElementById('clark-modal');
   var close=document.getElementById('clark-close');
-  var msgs=document.getElementById('clark-msgs');
-  var opts=document.getElementById('clark-opts');
+  var msgsEl=document.getElementById('clark-msgs');
+  var optsEl=document.getElementById('clark-opts-zone');
+  var history=[];
   var started=false;
 
+  var CLARK_SYSTEM='Tu es Clark, le guide sympathique de MySam. Tu aides les visiteurs \u00e0 trouver le bon service. MySam propose : 1) G\u00e9n\u00e9rateur CV IA (page accompagnement.html), 2) Bilan de comp\u00e9tences (RDV en ligne), 3) Pr\u00e9paration aux candidatures (RDV), 4) Solutions RH pour entreprises (contact), 5) Programme Zodiac pour personnes tr\u00e8s \u00e9loign\u00e9es de l\'emploi. Sois chaleureux, bref (2-3 phrases max par r\u00e9ponse), et propose toujours une action concr\u00e8te avec un lien ou une suggestion.';
+
+  // Fallback decision tree
   var flows={
-    start:{msg:'Salut ! Moi c\'est Clark, le guide MySam 🕷️\nJe suis l\u00e0 pour t\'orienter vers le bon service.\n\nQu\'est-ce qui t\'am\u00e8ne aujourd\'hui ?',options:[{txt:'Je cherche du travail',next:'emploi'},{txt:'Je veux am\u00e9liorer mon profil',next:'profil'},{txt:'Mon entreprise a besoin d\'aide',next:'entreprise'},{txt:'Je suis tr\u00e8s loin de l\'emploi',next:'zodiac'}]},
-    emploi:{msg:'Super ! Pour trouver un emploi, tu peux commencer par un CV optimis\u00e9 🚀\nTu as un CV existant ou tu pars de z\u00e9ro ?',options:[{txt:'J\'ai un CV \u00e0 optimiser',next:'cv_import'},{txt:'Je pars de z\u00e9ro',next:'cv_manuel'},{txt:'Je veux aussi me pr\u00e9parer aux entretiens',next:'preparation'}]},
-    profil:{msg:'Bonne d\u00e9cision d\'investir sur toi !\nPar o\u00f9 tu veux commencer ?',options:[{txt:'Refaire mon CV',next:'cv_import'},{txt:'Faire un bilan de comp\u00e9tences',next:'bilan'},{txt:'Pr\u00e9parer mes candidatures',next:'preparation'}]},
-    entreprise:{msg:'MySam accompagne aussi les entreprises dans leurs enjeux RH 🏢\nContacte-nous directement pour un devis personnalis\u00e9 !',options:[{txt:'Nous contacter',next:'contact_link'},{txt:'Retour au d\u00e9but',next:'start'}]},
-    zodiac:{msg:'Le Programme Zodiac est fait pour toi 🌟\nC\'est un accompagnement sp\u00e9cifique pour les personnes \u00e9loign\u00e9es de l\'emploi.\nNous travaillons avec des structures partenaires (Mission Locale, CAP Emploi...).',options:[{txt:'En savoir plus',next:'zodiac_link'},{txt:'Retour au d\u00e9but',next:'start'}]},
-    cv_import:{msg:'Parfait ! Va dans la section "Accompagnement Particuliers" et clique sur "G\u00e9n\u00e9rer mon CV".\nTu pourras importer ton CV existant et l\'IA l\'optimisera !',options:[{txt:'Y aller maintenant',next:'acc_link'},{txt:'Autre question',next:'start'}]},
-    cv_manuel:{msg:'Pas de probl\u00e8me ! L\'outil de CV MySam te permet aussi de tout saisir manuellement.\nL\'IA structurera et optimisera tes infos.',options:[{txt:'Essayer maintenant',next:'acc_link'},{txt:'Autre question',next:'start'}]},
-    bilan:{msg:'Le bilan de comp\u00e9tences MySam te permet de faire le point sur tes forces, tes envies et ton orientation.\nUn coach t\'accompagne tout au long du processus.',options:[{txt:'Prendre rendez-vous',next:'rdv_link'},{txt:'En savoir plus',next:'acc_link'}]},
-    preparation:{msg:'La pr\u00e9paration aux candidatures inclut :\n- Optimisation de ton CV\n- Lettre de motivation\n- Simulation d\'entretien\n- Strat\u00e9gie de recherche',options:[{txt:'Je suis int\u00e9ress\u00e9(e)',next:'rdv_link'},{txt:'Voir l\'outil CV d\'abord',next:'acc_link'}]},
-    acc_link:{msg:'Super ! Clique ci-dessous pour acc\u00e9der \u00e0 l\'espace Accompagnement.',options:[{txt:'Aller sur Accompagnement',next:'_go_acc'},{txt:'Retour',next:'start'}]},
-    contact_link:{msg:'Tu peux nous \u00e9crire \u00e0 mysam.officiel@gmail.com ou appeler le 06 69 25 53 04.',options:[{txt:'Aller sur la page contact',next:'_go_contact'},{txt:'Retour',next:'start'}]},
-    rdv_link:{msg:'Prends rendez-vous directement en ligne, c\'est rapide !',options:[{txt:'Prendre rendez-vous',next:'_go_rdv'},{txt:'Retour',next:'start'}]},
-    zodiac_link:{msg:'Le programme Zodiac est d\u00e9crit sur la page d\'accueil. Tu peux aussi nous contacter directement.',options:[{txt:'Nous contacter',next:'_go_contact'},{txt:'Retour',next:'start'}]}
+    start:{msg:'Salut\u00a0! Je suis Clark, le guide MySam\u00a0\ud83d\udd77\ufe0f\nQu\'est-ce qui t\'am\u00e8ne\u00a0?',options:[{txt:'Je cherche un emploi',next:'emploi'},{txt:'Je veux am\u00e9liorer mon profil',next:'profil'},{txt:'Mon entreprise a besoin d\'aide',next:'entreprise'},{txt:'Je suis loin de l\'emploi',next:'zodiac'}]},
+    emploi:{msg:'Super\u00a0! Commençons par ton CV.\nTu as un CV \u00e0 optimiser\u00a0?',options:[{txt:'Oui, je veux l\'optimiser avec l\'IA',next:'_cv'},{txt:'Non, je pars de z\u00e9ro',next:'_cv'},{txt:'Je veux me pr\u00e9parer aux entretiens',next:'_rdv'}]},
+    profil:{msg:'Bonne d\u00e9cision\u00a0!\nPar o\u00f9 tu veux commencer\u00a0?',options:[{txt:'G\u00e9n\u00e9rer mon CV avec l\'IA',next:'_cv'},{txt:'Faire un bilan de comp\u00e9tences',next:'_rdv'},{txt:'Pr\u00e9parer mes candidatures',next:'_rdv'}]},
+    entreprise:{msg:'MySam accompagne aussi les entreprises\u00a0\ud83c\udfe2\nContacte-nous pour un devis personnalis\u00e9\u00a0!',options:[{txt:'Aller sur la page contact',next:'_contact'},{txt:'Retour au d\u00e9but',next:'start'}]},
+    zodiac:{msg:'Le Programme Zodiac est fait pour toi\u00a0\ud83c\udf1f\nNous travaillons avec Mission Locale, CAP Emploi, CCAS...',options:[{txt:'En savoir plus sur Zodiac',next:'_zodiac'},{txt:'Nous contacter directement',next:'_contact'}]},
+    '_cv':{msg:'\u00c0 tout de suite\u00a0! Clique ci-dessous pour acc\u00e9der \u00e0 l\'outil CV\u00a0:',options:[{txt:'\ud83d\udcc4 Aller sur le g\u00e9n\u00e9rateur CV',next:'__acc'},{txt:'Autre question',next:'start'}]},
+    '_rdv':{msg:'Prends rendez-vous en ligne, c\'est rapide et gratuit\u00a0!',options:[{txt:'\ud83d\udcc5 Prendre rendez-vous',next:'__rdv'},{txt:'Autre question',next:'start'}]},
+    '_contact':{msg:'Tu peux nous \u00e9crire \u00e0 mysam.officiel@gmail.com\nou appeler le 06\u00a069\u00a025\u00a053\u00a004.',options:[{txt:'\u2709\ufe0f Page contact',next:'__contact'},{txt:'Retour',next:'start'}]},
+    '_zodiac':{msg:'Le programme Zodiac est d\u00e9crit sur la page d\'accueil, section Zodiac.\nNous contacter\u00a0: 06\u00a069\u00a025\u00a053\u00a004',options:[{txt:'Nous contacter',next:'__contact'},{txt:'Retour',next:'start'}]}
   };
 
-  function addMsg(txt,cls){
+  function addMsg(txt,cls,isTyping){
     var d=document.createElement('div');
     d.className='clark-msg '+cls;
-    d.style.whiteSpace='pre-line';
-    d.textContent=txt;
-    msgs.appendChild(d);
-    msgs.scrollTop=msgs.scrollHeight;
+    if(isTyping){d.innerHTML='<div class="clark-typing"><div class="clark-dot"></div><div class="clark-dot"></div><div class="clark-dot"></div></div>';msgsEl.appendChild(d);msgsEl.scrollTop=msgsEl.scrollHeight;return d;}
+    d.style.whiteSpace='pre-line';d.textContent=txt;
+    msgsEl.appendChild(d);msgsEl.scrollTop=msgsEl.scrollHeight;
+    return d;
+  }
+
+  function showOptions(options){
+    optsEl.className='clark-opts';
+    optsEl.innerHTML='';
+    options.forEach(function(o){
+      var b=document.createElement('button');
+      b.className='clark-opt';b.textContent=o.txt;
+      b.addEventListener('click',function(){
+        addMsg(o.txt,'user');
+        optsEl.innerHTML='';
+        if(o.next==='__acc'){window.location.href='accompagnement.html';}
+        else if(o.next==='__rdv'){window.location.href='rendezvous.html';}
+        else if(o.next==='__contact'){window.location.href='contact.html';}
+        else if(o.next==='__zodiac'){document.getElementById('zodiac').scrollIntoView({behavior:'smooth'});modal.classList.remove('open');}
+        else{showFlow(o.next);}
+      });
+      optsEl.appendChild(b);
+    });
   }
 
   function showFlow(key){
-    var f=flows[key];
-    if(!f)return;
+    var f=flows[key];if(!f)return;
+    var typing=addMsg('','bot',true);
     setTimeout(function(){
+      msgsEl.removeChild(typing);
       addMsg(f.msg,'bot');
-      opts.innerHTML='';
-      f.options.forEach(function(o){
-        var b=document.createElement('button');
-        b.className='clark-opt';
-        b.textContent=o.txt;
-        b.addEventListener('click',function(){
-          addMsg(o.txt,'user');
-          opts.innerHTML='';
-          if(o.next==='_go_acc'){window.location.href='accompagnement.html';}
-          else if(o.next==='_go_contact'){window.location.href='contact.html';}
-          else if(o.next==='_go_rdv'){window.location.href='rendezvous.html';}
-          else{showFlow(o.next);}
-        });
-        opts.appendChild(b);
-      });
-    },300);
+      if(f.options)showOptions(f.options);
+    },600);
+  }
+
+  async function sendAI(userMsg){
+    history.push({role:'user',content:userMsg});
+    var typing=addMsg('','bot',true);
+    optsEl.innerHTML='';
+    try{
+      var res=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:300,system:CLARK_SYSTEM,messages:history})});
+      var d=await res.json();
+      var reply=d.content[0].text;
+      history.push({role:'assistant',content:reply});
+      msgsEl.removeChild(typing);
+      addMsg(reply,'bot');
+      optsEl.className='clark-input-row';
+      optsEl.innerHTML='<input class="clark-input" id="clark-text" placeholder="Votre question..." /><button class="clark-send" id="clark-sendbtn">Envoyer</button>';
+      document.getElementById('clark-text').addEventListener('keypress',function(e){if(e.key==='Enter')sendFromInput();});
+      document.getElementById('clark-sendbtn').addEventListener('click',sendFromInput);
+    }catch(e){
+      msgsEl.removeChild(typing);
+      addMsg('Hmm, je n\'arrive pas \u00e0 r\u00e9pondre. Essaie de nous contacter directement\u00a0: 06 69 25 53 04','bot');
+    }
+  }
+
+  function sendFromInput(){
+    var inp=document.getElementById('clark-text');
+    if(!inp||!inp.value.trim())return;
+    addMsg(inp.value,'user');
+    var msg=inp.value;inp.value='';
+    sendAI(msg);
+  }
+
+  function initChat(){
+    if(useAI){
+      optsEl.className='clark-input-row';
+      optsEl.innerHTML='<input class="clark-input" id="clark-text" placeholder="Votre question..." /><button class="clark-send" id="clark-sendbtn">Envoyer</button>';
+      document.getElementById('clark-text').addEventListener('keypress',function(e){if(e.key==='Enter')sendFromInput();});
+      document.getElementById('clark-sendbtn').addEventListener('click',sendFromInput);
+      var typing=addMsg('','bot',true);
+      setTimeout(function(){
+        msgsEl.removeChild(typing);
+        addMsg('Salut\u00a0! Je suis Clark, le guide MySam\u00a0\ud83d\udd77\ufe0f\nPosez-moi votre question ou dites-moi ce dont vous avez besoin\u00a0!','bot');
+        history.push({role:'assistant',content:'Bonjour\u00a0! Je suis Clark. Comment puis-je vous aider\u00a0?'});
+      },800);
+    }else{
+      showFlow('start');
+    }
   }
 
   btn.addEventListener('click',function(){
     modal.classList.toggle('open');
-    if(!started&&modal.classList.contains('open')){
-      started=true;
-      showFlow('start');
-    }
+    if(!started&&modal.classList.contains('open')){started=true;initChat();}
   });
-
   close.addEventListener('click',function(){modal.classList.remove('open');});
 })();
 </script>
