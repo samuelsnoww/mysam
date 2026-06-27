@@ -183,21 +183,18 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 <script type="text/babel">
 // =====================================================
-// REMPLACE CETTE URL PAR TON URL CLOUDFLARE WORKER
-// Ex: https://mysam-cv.ton-compte.workers.dev
+// CONFIGURATION — Cloudflare Worker URL
+// 1. Déploie cloudflare-worker.js sur workers.cloudflare.com
+// 2. Ajoute la variable ANTHROPIC_API_KEY dans les settings du worker
+// 3. Remplace l'URL ci-dessous par l'URL de ton worker déployé
+// Exemple: "https://mysam-cv.ton-compte.workers.dev"
 // =====================================================
 const WORKER_URL = "https://mysam.samuel-mauviard.workers.dev";
+const WORKER_CONFIGURED = WORKER_URL !== "https://TON-WORKER.workers.dev" && !WORKER_URL.includes('TON-WORKER');
 
 if(typeof pdfjsLib!=='undefined'){
   pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
-
-const SYSTEM_PROMPT=`Tu es un expert en redaction de CV pour le marche francais.
-Tu recois des informations brutes sur un candidat.
-RETOURNE UNIQUEMENT un objet JSON valide. Aucun texte avant ou apres. Aucun backtick.
-Structure JSON :
-{"poste_recherche":"","nom":"","contact":{"ville_cp":"","email":"","telephone":"","linkedin":""},"accroche":"3-4 lignes : qui tu es + ce que tu apportes + ce que tu cherches","competences":[{"categorie":"","items":[]}],"langues":[{"langue":"","niveau":""}],"experiences":[{"titre":"","entreprise":"","lieu":"","dates":"","bullets":[]}],"formations":[{"diplome":"","ecole":"","dates":"","detail":""}],"interets":[{"icone":"emoji","titre":"","detail":""}]}
-REGLES : Competences 6-8 max groupees par theme. Langues niveau CECRL textuel. Experiences antéchronologique bullets verbe action. JAMAIS inventer des infos absentes.`;
 
 async function extractPDF(file){
   const arr=await file.arrayBuffer();
@@ -218,19 +215,29 @@ async function extractWord(file){
 }
 
 async function callWorker(userContent){
-  const res=await fetch(WORKER_URL,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,system:SYSTEM_PROMPT,messages:[{role:'user',content:userContent}]}),
-  });
- if(!res.ok)throw new Error('Erreur serveur ('+res.status+')');
-  const data=await res.json();
-  if(data.error)throw new Error(data.error||'Erreur API');
-  if(!data.content||!data.content[0])throw new Error('Reponse vide');
-  const txt=data.content[0].text;
-  const s=txt.indexOf('{'),e=txt.lastIndexOf('}');
-  if(s===-1||e===-1)throw new Error('JSON invalide');
-  return JSON.parse(txt.slice(s,e+1));
+  if(!WORKER_CONFIGURED){
+    throw new Error(
+      'Le service de génération n\'est pas encore configuré.\n' +
+      'Déploie le fichier cloudflare-worker.js sur Cloudflare Workers ' +
+      'et mets à jour WORKER_URL dans le code.'
+    );
+  }
+  let res;
+  try{
+    res=await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({userContent}),
+    });
+  }catch(netErr){
+    throw new Error('Impossible de contacter le serveur. Vérifiez votre connexion.');
+  }
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok){
+    throw new Error(data.error||'Erreur serveur ('+res.status+')');
+  }
+  if(data.error)throw new Error(data.error);
+  return data; /* Le worker retourne directement le JSON du CV */
 }
 
 const dark={background:'linear-gradient(135deg,#3B1F6B 0%,#5A2FA3 100%)',borderRadius:'16px',color:'#fff',padding:'60px 24px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',minHeight:'70vh',textAlign:'center'};
@@ -244,6 +251,14 @@ const inp={width:'100%',padding:'12px',borderRadius:'8px',border:'1px solid rgba
 function Landing({go}){
   return(
     <div style={dark}>
+      {!WORKER_CONFIGURED&&(
+        <div style={{background:'rgba(251,191,36,.1)',border:'1px solid rgba(251,191,36,.3)',borderRadius:'10px',padding:'12px 18px',marginBottom:'24px',maxWidth:'520px',width:'100%',textAlign:'left'}}>
+          <div style={{fontWeight:700,fontSize:'.85rem',color:'#fbbf24',marginBottom:'4px'}}>⚙️ Configuration requise</div>
+          <div style={{fontSize:'.78rem',color:'rgba(255,255,255,.55)',lineHeight:1.6}}>
+            Déploie <code style={{background:'rgba(255,255,255,.1)',padding:'1px 5px',borderRadius:'3px',fontSize:'.75rem'}}>cloudflare-worker.js</code> sur Cloudflare Workers et mets à jour <code style={{background:'rgba(255,255,255,.1)',padding:'1px 5px',borderRadius:'3px',fontSize:'.75rem'}}>WORKER_URL</code> dans ce fichier.
+          </div>
+        </div>
+      )}
       <div style={{fontSize:'3.5rem',marginBottom:'20px'}}>📄</div>
       <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(1.6rem,4vw,2.4rem)',marginBottom:'16px',fontWeight:700}}>Générez votre CV Maximisé</h2>
       <p style={{color:'rgba(255,255,255,.65)',lineHeight:1.7,maxWidth:'540px',marginBottom:'36px'}}>Importez votre CV existant ou remplissez le formulaire. L'IA optimise tout et génère un CV professionnel téléchargeable.</p>
