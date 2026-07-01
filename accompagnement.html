@@ -89,6 +89,41 @@ main{min-height:100vh;padding-top:72px;background:linear-gradient(160deg,var(--o
 .info-box li{font-size:.92rem;color:var(--tm);margin-bottom:10px;line-height:1.6}
 .sec-label{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mp);margin-bottom:10px}
 .sec-label-line{width:24px;height:2px;background:var(--or);border-radius:2px}
+
+/* ============================================================
+   CV RENDERER — EDITABLE A4 CV
+============================================================ */
+.cv-toolbar{max-width:800px;margin:0 auto 8px;background:#fff;border:1px solid var(--bd);border-radius:16px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.cv-toolbar-group{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cv-toolbar-label{font-size:.72rem;font-weight:700;color:var(--tl);text-transform:uppercase;letter-spacing:.06em;margin-right:2px}
+.cv-swatch{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s;flex-shrink:0;padding:0}
+.cv-swatch.sel{border-color:var(--td);transform:scale(1.15)}
+.cv-switch-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.cv-switch{position:relative;width:40px;height:22px;border-radius:50px;background:#d8d0ee;transition:background .25s;flex-shrink:0}
+.cv-switch.on{background:var(--mp)}
+.cv-switch-knob{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.cv-switch.on .cv-switch-knob{transform:translateX(18px)}
+.cv-toolbar .btn{padding:10px 20px;font-size:.85rem}
+.cv-toolbar .btn:disabled{opacity:.6;cursor:not-allowed}
+.cv-hint{max-width:800px;margin:0 auto 20px;font-size:.78rem;color:var(--tl);text-align:center}
+
+.a4-outer{overflow-x:auto;padding:4px 4px 32px;display:flex;justify-content:center}
+.a4-frame{--afs:1;position:relative;width:210mm;max-width:100%;aspect-ratio:210/297;flex-shrink:0}
+.a4-page{position:absolute;inset:0;width:210mm;height:297mm;background:#fff;box-shadow:0 8px 40px rgba(59,31,107,.18);overflow:hidden;transform-origin:top left;transform:scale(var(--afs,1))}
+.a4-page-inner{padding:14mm 16mm}
+
+.cv-photo{width:80px;height:80px;border-radius:14px;flex-shrink:0;background:rgba(255,255,255,.15);border:2px dashed rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;position:relative}
+.cv-photo img{width:100%;height:100%;object-fit:cover}
+.cv-photo-ico{font-size:1.5rem;color:rgba(255,255,255,.75)}
+.cv-photo-remove{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1}
+
+.editable{cursor:text;border-radius:4px;transition:background .15s}
+.editable:hover{background:rgba(255,255,255,.14)}
+.editable:focus{outline:2px solid #FF6B35;background:rgba(255,255,255,.2)}
+.editable-dark:hover{background:rgba(59,31,107,.07)}
+.editable-dark:focus{outline:2px solid #5A2FA3;background:rgba(59,31,107,.09)}
+.editable[data-empty="true"]:before{content:attr(data-placeholder);opacity:.55;pointer-events:none}
+
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 </style>
 </head>
@@ -390,48 +425,331 @@ function LoadingScreen(){
 }
 
 function ResultScreen({data,go}){
-  function downloadPDF(){
-    const el=document.getElementById('cv-export');
-    if(!el)return;
-    html2pdf().set({margin:10,filename:(data.nom||'cv').replace(/\s+/g,'-').toLowerCase()+'-mysam.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{orientation:'portrait',unit:'mm',format:'a4'}}).from(el).save();
-  }
   return(
     <div style={light}>
-      <div style={{maxWidth:'860px',margin:'0 auto'}}>
+      <div style={{maxWidth:'900px',margin:'0 auto'}}>
         <div style={{display:'flex',gap:'12px',marginBottom:'24px',flexWrap:'wrap'}}>
           <button style={{padding:'10px 18px',background:'#fff',border:'1px solid #cbd5e1',borderRadius:'10px',fontWeight:600,cursor:'pointer',color:'#1A1030'}} onClick={()=>go('landing')}>← Nouveau CV</button>
-          <button style={{...btnOr,padding:'10px 24px'}} onClick={downloadPDF}>⬇ Télécharger PDF</button>
         </div>
         <div style={{background:'#e8f5e9',borderRadius:'10px',padding:'12px 16px',marginBottom:'24px',color:'#1b5e20',fontWeight:600,fontSize:'.9rem'}}>
-          ✅ CV généré avec succès ! Téléchargez-le en PDF.
+          ✅ CV généré avec succès ! Personnalisez-le ci-dessous — photo, couleurs, texte : tout est modifiable.
         </div>
-        <CVRender d={data}/>
+        <CVRenderer d={data}/>
       </div>
     </div>
   );
 }
 
-function CVRender({d}){
-  const sec={marginBottom:'28px'};
-  const secT={fontSize:'1rem',fontWeight:700,color:'#3B1F6B',marginBottom:'12px',paddingBottom:'6px',borderBottom:'2px solid #EDE7FF'};
+/* ============================================================
+   CVRenderer — CV éditable 1 page A4, photo, 6 duos de couleurs,
+   toggle loisirs, sauvegarde localStorage, export PDF
+============================================================ */
+const CV_STORAGE_KEY='mysam_cv_editor_v1';
+const CV_PAGE_W_PX=793.7; /* 210mm @ 96dpi */
+
+const COLOR_DUOS=[
+  {name:'Violet',     p:'#3B1F6B', s:'#5A2FA3', l:'#EDE7FF'},
+  {name:'Bleu nuit',  p:'#0F2D4A', s:'#2563EB', l:'#DBEAFE'},
+  {name:'Vert forêt', p:'#14532D', s:'#16A34A', l:'#DCFCE7'},
+  {name:'Bordeaux',   p:'#5C1616', s:'#B91C1C', l:'#FEE2E2'},
+  {name:'Anthracite', p:'#1F2937', s:'#4B5563', l:'#E5E7EB'},
+  {name:'Terracotta', p:'#6B2E12', s:'#EA580C', l:'#FFEDD5'},
+];
+
+function normalizeCV(d){
+  d=d||{};
+  return{
+    poste_recherche:d.poste_recherche||'',
+    nom:d.nom||'',
+    contact:{
+      ville_cp:d.contact?.ville_cp||'',
+      email:d.contact?.email||'',
+      telephone:d.contact?.telephone||'',
+      linkedin:d.contact?.linkedin||'',
+    },
+    accroche:d.accroche||'',
+    competences:(d.competences||[]).map(cat=>({
+      categorie:cat.categorie||'',
+      items:Array.isArray(cat.items)?cat.items.join(' · '):(cat.items||''),
+    })),
+    langues:(d.langues||[]).map(l=>({langue:l.langue||'',niveau:l.niveau||''})),
+    experiences:(d.experiences||[]).map(e=>({
+      titre:e.titre||'',entreprise:e.entreprise||'',lieu:e.lieu||'',dates:e.dates||'',
+      bullets:(e.bullets||[]).map(b=>b||''),
+    })),
+    formations:(d.formations||[]).map(f=>({
+      diplome:f.diplome||'',ecole:f.ecole||'',dates:f.dates||'',detail:f.detail||'',
+    })),
+    interets:(d.interets||[]).map(i=>({icone:i.icone||'',titre:i.titre||'',detail:i.detail||''})),
+  };
+}
+
+function setPath(obj,path,value){
+  const clone=JSON.parse(JSON.stringify(obj));
+  let cur=clone;
+  for(let i=0;i<path.length-1;i++)cur=cur[path[i]];
+  cur[path[path.length-1]]=value;
+  return clone;
+}
+
+function Editable({value,onChange,tag='div',className='',style,placeholder,multiline,dark}){
+  const Tag=tag;
   return(
-    <div id="cv-export" style={{background:'#fff',padding:'40px',borderRadius:'12px',boxShadow:'0 4px 24px rgba(59,31,107,.1)',fontFamily:"'Inter',sans-serif"}}>
-      <div style={{background:'linear-gradient(135deg,#3B1F6B 0%,#5A2FA3 100%)',color:'#fff',padding:'36px 40px',borderRadius:'8px',marginBottom:'32px',textAlign:'center'}}>
-        <div style={{fontSize:'1.4rem',fontWeight:700,opacity:.85,marginBottom:'6px',letterSpacing:'.05em',textTransform:'uppercase'}}>{d.poste_recherche||''}</div>
-        <div style={{fontSize:'2rem',fontWeight:800,marginBottom:'14px'}}>{d.nom||''}</div>
-        <div style={{fontSize:'.88rem',opacity:.8,display:'flex',gap:'16px',justifyContent:'center',flexWrap:'wrap'}}>
-          {d.contact?.ville_cp&&<span>📍 {d.contact.ville_cp}</span>}
-          {d.contact?.email&&<span>✉️ {d.contact.email}</span>}
-          {d.contact?.telephone&&<span>📞 {d.contact.telephone}</span>}
-          {d.contact?.linkedin&&<span>🔗 {d.contact.linkedin}</span>}
+    <Tag
+      className={'editable '+(dark?'editable-dark ':'')+className}
+      contentEditable
+      suppressContentEditableWarning
+      style={style}
+      data-empty={value?'false':'true'}
+      data-placeholder={placeholder||''}
+      onKeyDown={e=>{ if(!multiline&&e.key==='Enter'){ e.preventDefault(); e.currentTarget.blur(); } }}
+      onBlur={e=>{
+        const text=e.currentTarget.innerText.replace(/\n+$/,'').trim();
+        if(text!==value)onChange(text);
+      }}
+    >{value}</Tag>
+  );
+}
+
+function CVRenderer({d}){
+  const[state,setState]=React.useState(()=>{
+    const fresh={content:normalizeCV(d),photo:null,colorIndex:0,showInterets:true};
+    try{
+      const saved=JSON.parse(localStorage.getItem(CV_STORAGE_KEY)||'null');
+      if(saved&&saved.content&&saved.content.nom===fresh.content.nom&&saved.content.poste_recherche===fresh.content.poste_recherche){
+        return saved;
+      }
+    }catch(e){}
+    return fresh;
+  });
+  const[exporting,setExporting]=React.useState(false);
+  const frameRef=React.useRef();
+  const pageRef=React.useRef();
+  const innerRef=React.useRef();
+  const fileRef=React.useRef();
+
+  React.useEffect(()=>{
+    try{ localStorage.setItem(CV_STORAGE_KEY,JSON.stringify(state)); }catch(e){}
+  },[state]);
+
+  const c=state.content;
+  const colors=COLOR_DUOS[state.colorIndex]||COLOR_DUOS[0];
+
+  function update(path,value){
+    setState(s=>({...s,content:setPath(s.content,path,value)}));
+  }
+
+  function handlePhoto(file){
+    if(!file)return;
+    const reader=new FileReader();
+    reader.onload=()=>setState(s=>({...s,photo:reader.result}));
+    reader.readAsDataURL(file);
+  }
+
+  /* fit content to exactly one A4 page — shrink, never grow */
+  React.useLayoutEffect(()=>{
+    const inner=innerRef.current, page=pageRef.current;
+    if(!inner||!page)return;
+    inner.style.width='100%';
+    inner.style.transform='none';
+    const naturalH=inner.scrollHeight;
+    const pageH=page.clientHeight;
+    const s=naturalH>pageH?pageH/naturalH:1;
+    inner.style.width=(100/s)+'%';
+    inner.style.transform='scale('+s+')';
+  });
+
+  /* responsive shrink of the whole A4 preview on small screens */
+  React.useEffect(()=>{
+    const frame=frameRef.current;
+    if(!frame)return;
+    function apply(){
+      const afs=Math.min(1, frame.clientWidth/CV_PAGE_W_PX);
+      frame.style.setProperty('--afs',afs);
+    }
+    apply();
+    const ro=new ResizeObserver(apply);
+    ro.observe(frame);
+    window.addEventListener('resize',apply);
+    return ()=>{ ro.disconnect(); window.removeEventListener('resize',apply); };
+  },[]);
+
+  function downloadPDF(){
+    const frame=frameRef.current, page=pageRef.current;
+    if(!page)return;
+    if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+    setExporting(true);
+    const prevAfs=frame.style.getPropertyValue('--afs');
+    frame.style.setProperty('--afs','1');
+    requestAnimationFrame(()=>{
+      html2pdf().set({
+        margin:0,
+        filename:(c.nom||'cv').replace(/\s+/g,'-').toLowerCase()+'-mysam.pdf',
+        image:{type:'jpeg',quality:0.98},
+        html2canvas:{scale:2,useCORS:true},
+        jsPDF:{orientation:'portrait',unit:'mm',format:'a4'},
+      }).from(page).save().then(()=>{
+        frame.style.setProperty('--afs',prevAfs);
+        setExporting(false);
+      }).catch(()=>{
+        frame.style.setProperty('--afs',prevAfs);
+        setExporting(false);
+      });
+    });
+  }
+
+  const sec={marginBottom:'18px'};
+  const secT={fontSize:'.9rem',fontWeight:700,color:colors.p,marginBottom:'8px',paddingBottom:'4px',borderBottom:'2px solid '+colors.l};
+
+  return(
+    <div>
+      <div className="cv-toolbar">
+        <div className="cv-toolbar-group">
+          <span className="cv-toolbar-label">Couleurs</span>
+          {COLOR_DUOS.map((cd,i)=>(
+            <button key={i}
+              className={'cv-swatch'+(i===state.colorIndex?' sel':'')}
+              style={{background:'linear-gradient(135deg,'+cd.p+' 50%,'+cd.s+' 50%)'}}
+              title={cd.name}
+              aria-label={'Couleurs '+cd.name}
+              onClick={()=>setState(s=>({...s,colorIndex:i}))}
+            />
+          ))}
+        </div>
+        <div className="cv-toolbar-group">
+          <div className="cv-switch-wrap" onClick={()=>setState(s=>({...s,showInterets:!s.showInterets}))}>
+            <div className={'cv-switch'+(state.showInterets?' on':'')}><div className="cv-switch-knob"></div></div>
+            <span style={{fontSize:'.85rem',fontWeight:600,color:'#4A3870'}}>Centres d'intérêt</span>
+          </div>
+          <button className="btn btn-or" onClick={downloadPDF} disabled={exporting}>{exporting?'⏳ Export...':'⬇ Télécharger PDF'}</button>
         </div>
       </div>
-      {d.accroche&&<div style={sec}><div style={secT}>À propos</div><p style={{lineHeight:1.75,color:'#4A3870',fontSize:'.95rem'}}>{d.accroche}</p></div>}
-      {d.competences?.length>0&&<div style={sec}><div style={secT}>Compétences</div><div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:'12px'}}>{d.competences.map((cat,i)=><div key={i} style={{background:'#FAF9FF',borderRadius:'8px',padding:'12px 14px',border:'1px solid #E0D8F5'}}><div style={{fontWeight:700,color:'#5A2FA3',fontSize:'.82rem',textTransform:'uppercase',letterSpacing:'.05em',marginBottom:'6px'}}>{cat.categorie}</div><div style={{color:'#4A3870',fontSize:'.88rem',lineHeight:1.6}}>{Array.isArray(cat.items)?cat.items.join(' · '):cat.items}</div></div>)}</div></div>}
-      {d.langues?.length>0&&<div style={sec}><div style={secT}>Langues</div><div style={{display:'flex',gap:'12px',flexWrap:'wrap'}}>{d.langues.map((l,i)=><div key={i} style={{background:'#EDE7FF',borderRadius:'50px',padding:'6px 16px',fontSize:'.88rem',color:'#3B1F6B',fontWeight:600}}>{l.langue} — {l.niveau}</div>)}</div></div>}
-      {d.experiences?.length>0&&<div style={sec}><div style={secT}>Expériences professionnelles</div>{d.experiences.map((exp,i)=><div key={i} style={{marginBottom:'20px',paddingLeft:'16px',borderLeft:'3px solid #EDE7FF'}}><div style={{fontWeight:700,color:'#1A1030',fontSize:'1rem',marginBottom:'2px'}}>{exp.titre}</div><div style={{color:'#5A2FA3',fontSize:'.88rem',marginBottom:'8px',fontWeight:500}}>{[exp.entreprise,exp.lieu,exp.dates].filter(Boolean).join(' · ')}</div>{Array.isArray(exp.bullets)&&exp.bullets.length>0&&<ul style={{margin:0,paddingLeft:'18px',color:'#4A3870',lineHeight:1.7,fontSize:'.9rem'}}>{exp.bullets.map((b,j)=><li key={j} style={{marginBottom:'4px'}}>{b}</li>)}</ul>}</div>)}</div>}
-      {d.formations?.length>0&&<div style={sec}><div style={secT}>Formations</div>{d.formations.map((form,i)=><div key={i} style={{marginBottom:'14px',paddingLeft:'16px',borderLeft:'3px solid #EDE7FF'}}><div style={{fontWeight:700,color:'#1A1030',marginBottom:'2px'}}>{form.diplome}</div><div style={{color:'#5A2FA3',fontSize:'.88rem',marginBottom:'4px',fontWeight:500}}>{[form.ecole,form.dates].filter(Boolean).join(' · ')}</div>{form.detail&&<div style={{color:'#4A3870',fontSize:'.88rem'}}>{form.detail}</div>}</div>)}</div>}
-      {d.interets?.length>0&&<div style={sec}><div style={secT}>Centres d'intérêt</div><div style={{display:'flex',gap:'12px',flexWrap:'wrap'}}>{d.interets.map((int,i)=><div key={i} style={{background:'#FAF9FF',border:'1px solid #E0D8F5',borderRadius:'8px',padding:'10px 14px',fontSize:'.88rem',color:'#4A3870'}}>{int.icone} <strong>{int.titre}</strong>{int.detail?` — ${int.detail}`:''}</div>)}</div></div>}
+      <p className="cv-hint">💡 Cliquez directement sur un champ du CV pour le modifier.</p>
+
+      <div className="a4-outer">
+        <div ref={frameRef} className="a4-frame">
+          <div ref={pageRef} id="cv-export" className="a4-page">
+            <div ref={innerRef} className="a4-page-inner">
+
+              <div style={{background:'linear-gradient(135deg,'+colors.p+' 0%,'+colors.s+' 100%)',color:'#fff',padding:'18px 20px',borderRadius:'8px',marginBottom:'18px',display:'flex',alignItems:'center',gap:'18px'}}>
+                <div className="cv-photo" onClick={()=>fileRef.current&&fileRef.current.click()}>
+                  {state.photo
+                    ?<img src={state.photo} alt="Photo de profil"/>
+                    :<span className="cv-photo-ico">📷</span>}
+                  {state.photo&&!exporting&&(
+                    <span className="cv-photo-remove" onClick={e=>{e.stopPropagation();setState(s=>({...s,photo:null}));}}>✕</span>
+                  )}
+                </div>
+                <input ref={fileRef} type="file" accept="image/*" style={{display:'none'}} onChange={e=>handlePhoto(e.target.files[0])}/>
+                <div style={{flex:1,minWidth:0}}>
+                  <Editable value={c.poste_recherche} onChange={v=>update(['poste_recherche'],v)} placeholder="Poste recherché" style={{fontSize:'.72rem',fontWeight:700,opacity:.9,letterSpacing:'.05em',textTransform:'uppercase',marginBottom:'4px'}}/>
+                  <Editable value={c.nom} onChange={v=>update(['nom'],v)} placeholder="Votre nom" style={{fontSize:'1.35rem',fontWeight:800,marginBottom:'6px'}}/>
+                  <div style={{fontSize:'.74rem',opacity:.88,display:'flex',gap:'10px',flexWrap:'wrap'}}>
+                    <Editable tag="span" value={c.contact.ville_cp} onChange={v=>update(['contact','ville_cp'],v)} placeholder="Ville"/>
+                    <Editable tag="span" value={c.contact.email} onChange={v=>update(['contact','email'],v)} placeholder="Email"/>
+                    <Editable tag="span" value={c.contact.telephone} onChange={v=>update(['contact','telephone'],v)} placeholder="Téléphone"/>
+                    <Editable tag="span" value={c.contact.linkedin} onChange={v=>update(['contact','linkedin'],v)} placeholder="LinkedIn"/>
+                  </div>
+                </div>
+              </div>
+
+              <div style={sec}>
+                <div style={secT}>À propos</div>
+                <Editable dark value={c.accroche} onChange={v=>update(['accroche'],v)} multiline placeholder="Présentez-vous en quelques lignes..." style={{lineHeight:1.55,color:'#4A3870',fontSize:'.82rem'}}/>
+              </div>
+
+              {c.competences.length>0&&(
+                <div style={sec}>
+                  <div style={secT}>Compétences</div>
+                  <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(150px,1fr))',gap:'8px'}}>
+                    {c.competences.map((cat,i)=>(
+                      <div key={i} style={{background:'#FAF9FF',borderRadius:'8px',padding:'8px 10px',border:'1px solid #E0D8F5'}}>
+                        <Editable dark value={cat.categorie} onChange={v=>update(['competences',i,'categorie'],v)} placeholder="Catégorie" style={{fontWeight:700,color:colors.s,fontSize:'.7rem',textTransform:'uppercase',letterSpacing:'.05em',marginBottom:'3px'}}/>
+                        <Editable dark value={cat.items} onChange={v=>update(['competences',i,'items'],v)} placeholder="Compétences" style={{color:'#4A3870',fontSize:'.78rem',lineHeight:1.45}}/>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {c.langues.length>0&&(
+                <div style={sec}>
+                  <div style={secT}>Langues</div>
+                  <div style={{display:'flex',gap:'8px',flexWrap:'wrap'}}>
+                    {c.langues.map((l,i)=>(
+                      <div key={i} style={{background:colors.l,borderRadius:'50px',padding:'4px 12px',fontSize:'.76rem',color:colors.p,fontWeight:600,display:'flex',gap:'4px'}}>
+                        <Editable dark tag="span" value={l.langue} onChange={v=>update(['langues',i,'langue'],v)} placeholder="Langue"/>
+                        <span>—</span>
+                        <Editable dark tag="span" value={l.niveau} onChange={v=>update(['langues',i,'niveau'],v)} placeholder="Niveau"/>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {c.experiences.length>0&&(
+                <div style={sec}>
+                  <div style={secT}>Expériences professionnelles</div>
+                  {c.experiences.map((exp,i)=>(
+                    <div key={i} style={{marginBottom:'12px',paddingLeft:'10px',borderLeft:'3px solid '+colors.l}}>
+                      <Editable dark value={exp.titre} onChange={v=>update(['experiences',i,'titre'],v)} placeholder="Intitulé du poste" style={{fontWeight:700,color:'#1A1030',fontSize:'.86rem',marginBottom:'2px'}}/>
+                      <div style={{display:'flex',gap:'4px',flexWrap:'wrap',color:colors.s,fontSize:'.74rem',marginBottom:'5px',fontWeight:500}}>
+                        <Editable dark tag="span" value={exp.entreprise} onChange={v=>update(['experiences',i,'entreprise'],v)} placeholder="Entreprise"/>
+                        <span>·</span>
+                        <Editable dark tag="span" value={exp.lieu} onChange={v=>update(['experiences',i,'lieu'],v)} placeholder="Lieu"/>
+                        <span>·</span>
+                        <Editable dark tag="span" value={exp.dates} onChange={v=>update(['experiences',i,'dates'],v)} placeholder="Dates"/>
+                      </div>
+                      {exp.bullets.length>0&&(
+                        <ul style={{margin:0,paddingLeft:'16px',color:'#4A3870',lineHeight:1.5,fontSize:'.78rem'}}>
+                          {exp.bullets.map((b,j)=>(
+                            <li key={j} style={{marginBottom:'2px'}}>
+                              <Editable dark tag="span" value={b} onChange={v=>update(['experiences',i,'bullets',j],v)} placeholder="Résultat / mission"/>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {c.formations.length>0&&(
+                <div style={sec}>
+                  <div style={secT}>Formations</div>
+                  {c.formations.map((f,i)=>(
+                    <div key={i} style={{marginBottom:'8px',paddingLeft:'10px',borderLeft:'3px solid '+colors.l}}>
+                      <Editable dark value={f.diplome} onChange={v=>update(['formations',i,'diplome'],v)} placeholder="Diplôme" style={{fontWeight:700,color:'#1A1030',fontSize:'.82rem',marginBottom:'2px'}}/>
+                      <div style={{display:'flex',gap:'4px',color:colors.s,fontSize:'.74rem',marginBottom:'2px',fontWeight:500}}>
+                        <Editable dark tag="span" value={f.ecole} onChange={v=>update(['formations',i,'ecole'],v)} placeholder="École"/>
+                        <span>·</span>
+                        <Editable dark tag="span" value={f.dates} onChange={v=>update(['formations',i,'dates'],v)} placeholder="Dates"/>
+                      </div>
+                      <Editable dark value={f.detail} onChange={v=>update(['formations',i,'detail'],v)} placeholder="Détail (optionnel)" style={{color:'#4A3870',fontSize:'.74rem'}}/>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {state.showInterets&&c.interets.length>0&&(
+                <div style={sec}>
+                  <div style={secT}>Centres d'intérêt</div>
+                  <div style={{display:'flex',gap:'8px',flexWrap:'wrap'}}>
+                    {c.interets.map((int,i)=>(
+                      <div key={i} style={{background:'#FAF9FF',border:'1px solid #E0D8F5',borderRadius:'8px',padding:'6px 10px',fontSize:'.76rem',color:'#4A3870',display:'flex',gap:'4px'}}>
+                        <Editable dark tag="span" value={int.icone} onChange={v=>update(['interets',i,'icone'],v)} placeholder="🎯"/>
+                        <Editable dark tag="span" value={int.titre} onChange={v=>update(['interets',i,'titre'],v)} placeholder="Loisir" style={{fontWeight:700}}/>
+                        <Editable dark tag="span" value={int.detail} onChange={v=>update(['interets',i,'detail'],v)} placeholder="(optionnel)"/>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
